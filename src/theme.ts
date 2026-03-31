@@ -11,4 +11,18 @@ export const theme = createTheme({
     typography: {
         fontFamily: `${poppins.style.fontFamily}, sans-serif`,
     },
+    palette: {
+        primary: {
+            main: '#3462F4',
+        },
+        text: {
+            primary: '#2C2C2C',
+            secondary: '#64748B'
+        },
+        background: {
+            default: '#FFFFFF',
+            paper: '#F8FAFC',
+        },
+        divider: '#E2E8F0'
+    },
 })
