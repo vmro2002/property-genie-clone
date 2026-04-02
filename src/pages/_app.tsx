@@ -5,6 +5,7 @@ import Head from "next/head";
 import CssBaseline from '@mui/material/CssBaseline';
 import { theme, poppins } from "@/theme";
 import Header from "@/components/Header";
+import { Container } from "@mui/material";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -19,7 +20,14 @@ export default function App({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Header />
-          <Component {...pageProps} />
+            <Container
+            maxWidth="xl"
+            sx={{
+              marginTop: 4
+            }}
+            >
+              <Component {...pageProps} />
+            </Container>
         </ThemeProvider>
       </main>
   </>
