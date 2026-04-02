@@ -24,6 +24,7 @@ export default function Header() {
                     height: 'auto',
                     objectFit: 'contain',
                 }}
+                loading="eager"
             />
         </Box>
     )

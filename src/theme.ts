@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 export const poppins = Poppins({
     variable: "--font-poppins",
     subsets: ["latin"],
-    weight: ["400", "500", "700"],
+    weight: ["400", "500", "600", "700"],
 })
 
 export const theme = createTheme({
@@ -14,6 +14,7 @@ export const theme = createTheme({
     palette: {
         primary: {
             main: '#3462F4',
+            light: '#3462F41A'
         },
         text: {
             primary: '#2C2C2C',

@@ -6,8 +6,31 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { theme, poppins } from "@/theme";
 import Header from "@/components/Header";
 import { Container } from "@mui/material";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // initial page load 
+    setLoading(false)
+
+    const handleStart = () => setLoading(true)
+    const handleComplete = () => setLoading(false)
+
+    router.events.on('routeChangeStart', handleStart)
+    router.events.on('routeChangeComplete', handleComplete)
+    router.events.on('routeChangeError', handleComplete)
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart)
+      router.events.off('routeChangeComplete', handleComplete)
+      router.events.off('routeChangeError', handleComplete)
+    }
+  }, [])
+
   return (
     <>
       <Head>
@@ -17,9 +40,20 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={poppins.className}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Header />
+        {loading? (
+          <div 
+          style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            height: '100vh' 
+          }}>
+            loading....
+          </div>
+        ) : (
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Header />
             <Container
             maxWidth="xl"
             sx={{
@@ -28,7 +62,8 @@ export default function App({ Component, pageProps }: AppProps) {
             >
               <Component {...pageProps} />
             </Container>
-        </ThemeProvider>
+          </ThemeProvider>
+            )}
       </main>
   </>
 );

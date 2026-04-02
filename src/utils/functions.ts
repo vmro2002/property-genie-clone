@@ -1,14 +1,18 @@
 import { ListingsResponse } from "./types";
 import { API_ENDPOINT } from "./constants";
 import type {GetServerSidePropsContext} from "next";
+import Decimal from "decimal.js";
 
 export async function getListingsData(ctx: GetServerSidePropsContext): Promise<ListingsResponse> {
 
-    const {
-        page
-    } = ctx.query;
+    const { page, sort } = ctx.query;
+
+    const params = new URLSearchParams({
+        page: String(page ?? 1),
+        sort: String(sort ?? 'price'),
+    });
     
-    const res = await fetch(`${API_ENDPOINT}/properties-mock?page=${page ?? 1}`, {
+    const res = await fetch(`${API_ENDPOINT}/properties-mock?${params.toString()}`, {
         method: 'POST',
     });
 
@@ -20,10 +24,10 @@ export async function getListingsData(ctx: GetServerSidePropsContext): Promise<L
 }
 
 export const getFormattedPricePsf = (floorSize: string, price: number) => {
-    const numericSize = parseFloat(floorSize);
-    const psf = isNaN(numericSize) || numericSize === 0 ? 0 : price / numericSize;
+    // using decimal.js to avoid floating point precision issues
+    const psf = new Decimal(price).div(new Decimal(floorSize)).toFixed(2);
 
-    return `RM ${psf.toFixed(2)} psf`;
+    return `RM ${psf} psf`;
 }
 
 export const getFormattedPrice = (price: number) => {
@@ -33,5 +37,5 @@ export const getFormattedPrice = (price: number) => {
 export const getUserInitials = (name: string) => {
     const splitName = name.split(" ");
 
-    return (`${splitName[0][0]} ${splitName[1] ? splitName[1][0] : ''}`).toUpperCase();
+    return (`${splitName[0][0]}${splitName[1] ? splitName[1][0] : ''}`).toUpperCase();
 }

@@ -30,7 +30,7 @@ export type ListingsResponse = {
             latitude: number;
         };
         createdAt: string;
-    },
+    }[],
     _links: {
         self: {
             href: string;

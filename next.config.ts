@@ -8,6 +8,23 @@ const nextConfig: NextConfig = {
     resolveAlias: {
       '@mui/styled-engine': '@mui/styled-engine-sc',
     }
+  },
+  // Allow images from all origins to be optimized for demo purpose only
+  images: {
+    localPatterns: [
+      {
+        pathname: '/**',
+      }
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*',
+      }
+    ]
+  },
+  compiler: {
+    styledComponents: true,
   }
 };
 

@@ -4,7 +4,6 @@ import {
   Box,
   Typography,
   IconButton,
-  Avatar,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import KingBedOutlinedIcon from "@mui/icons-material/KingBedOutlined";
@@ -18,11 +17,13 @@ import {
     getFormattedPrice, 
     getUserInitials 
 } from "@/utils/functions";
-
+import Image from "next/image";
+import { useState } from "react";
 
 export default function ListingCard({
   isVertical,
   imgUrl,
+  eagerLoadImg,
   price,
   name,
   address,
@@ -33,6 +34,7 @@ export default function ListingCard({
 }: ListingCardProps) {
 
   const iconSx = { fontSize: 18, color: "text.secondary" };
+  const [imgSrc, setImgSrc] = useState(imgUrl);
 
   const formattedPrice = getFormattedPrice(price);
   const formattedPricePsf = getFormattedPricePsf(floorSize, price);
@@ -42,14 +44,15 @@ export default function ListingCard({
   return (
     <Card
       sx={{
-        display: isVertical ? "block" : "flex",
+        display: "flex",
+        flexDirection: isVertical ? 'column' : 'row',
         borderRadius: 3,
         overflow: "hidden",
-        maxWidth: isVertical ? 340 : 720,
+        maxWidth: '100%',
         boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
         bgcolor: "background.default",
         border: 1,
-        borderColor: 'divider'
+        borderColor: 'divider',
       }}
     >
         {/* Image section */}
@@ -61,17 +64,23 @@ export default function ListingCard({
             }}
         >
             <Box
-              component="img"
-              src={imgUrl}
-              alt={name}
-              sx={{
-                width: "100%",
-                height: isVertical ? 220 : "100%",
-                objectFit: "cover",
-                display: "block",
-              }}
-            />
-
+            sx={{
+                position: "relative",
+                backgroundColor: "divider",
+                minHeight: 220
+            }}>
+                <Image
+                loading={eagerLoadImg ? "eager" : "lazy"}
+                src={imgSrc}
+                alt={name}
+                onError={() => setImgSrc("/placeholder.png")}
+                style={{
+                    objectFit: "cover",
+                }}
+                fill
+                sizes="(max-width: 599px) 100vw, (max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw"
+                />
+            </Box>
             <Box
                 sx={{
                 position: "absolute",
@@ -93,19 +102,20 @@ export default function ListingCard({
         {/* Content section */}
         <Box
         sx={{
-            flex: 1,
+            display: 'flex',
             flexDirection: 'column',
-            // border: 1
+            flex: 1,
         }}
         >
             <Box
                 sx={{
-                  p: 2.5,
+                  px: 2,
+                  pt: 2,
                   display: "flex",
                   flexDirection: "column",
-                  gap: 1.5,
+                  justifyContent: isVertical ? 'flex-start' : 'center',
                   flex: 1,
-                  justifyContent: "center",
+                  gap: 1.5,
                 }}
             >
                 <Typography
@@ -119,9 +129,9 @@ export default function ListingCard({
                   {name}
                 </Typography>
 
-                <Box sx={{ display: "flex", alignItems: "flex-start", gap: 0.5 }}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                   <LocationOnIcon
-                    sx={{ fontSize: 18, color: "primary.main", mt: 0.25 }}
+                    sx={iconSx}
                   />
                   <Typography variant="body2" color="text.secondary">
                     {address}
@@ -165,18 +175,23 @@ export default function ListingCard({
             </Box>
             <Box 
             sx={{ 
-                px: 2.5,
+                mt: isVertical ? 1 : 3,
+                px: 2,
                 py: 1.5,
                 display: "flex", 
                 alignItems: "center", 
-                alignSelf: 'end',
                 gap: 1.5, 
                 backgroundColor: "background.paper",
-                border: 1,
+                borderTop: 1,
                 borderColor: 'divider'
             }}>
-                <Avatar
+                <Box
                 sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "50%",
+                    color: 'text.primary',
                     width: 40,
                     height: 40,
                     bgcolor: "#E65100",
@@ -185,24 +200,25 @@ export default function ListingCard({
                 }}
                 >
                 {initials}
-                </Avatar>
-                <Box sx={{ flex: 1 }}>
-                <Typography
-                    variant="body2"
-                    sx={{ fontWeight: 700, color: "text.primary" }}
-                >
-                    {account.name}
-                </Typography>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                    <VerifiedIcon sx={{ fontSize: 14, color: "primary.main" }} />
-                    <Typography variant="caption" sx={{ color: "primary.main" }}>
-                    Verified Agent
-                    </Typography>
                 </Box>
+                <Box sx={{ flex: 1 }}>
+                    <Typography
+                        variant="body2"
+                        sx={{ fontWeight: 700, color: "text.primary" }}
+                    >
+                        {account.name}
+                    </Typography>
+                 
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                        <VerifiedIcon sx={{ fontSize: 14, color: "primary.main" }} />
+                        <Typography variant="caption" sx={{ color: "primary.main" }}>
+                        Verified Agent
+                        </Typography>
+                    </Box>
                 </Box>
                 <IconButton
                 component="a"
-                href={`https://wa.me/${account.phone}`}
+                href={`https://wa.me/${account.phone.slice(1)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{

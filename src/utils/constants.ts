@@ -1,3 +1,6 @@
+/**
+ * Base API endpoint used for listings and locations
+ */
 export const API_ENDPOINT = "https://agents.propertygenie.com.my/api";
 
 /**
@@ -48,16 +51,24 @@ export const LISTING_FURNISHINGS = [
     }
 ]
 
-const fakeListing = {
-    imgUrl: "/listing.jpg",
-    price: 2600000,
-    name: "Kenny Hills Residence, Bukit Tunku Kuala Lumpur",
-    address: "Kuala Lumpur, 50480, Kuala Lumpur, Malaysia",
-    bedRomms: 5,
-    bathRooms: 6,
-    floorSize: "3627.00",
-    account: {
-      name: "bisyardi bin Mohamad Hasbi",
-      phone: "60123456789",
+/**
+ * Listing sort filter options
+ */
+export const LISTINGS_SORT_OPTIONS = [
+    { 
+        label: 'Price: Low to High',
+        value: 'price'
     },
-  };
+    {
+        label: 'Price: High to Low',
+        value: '-price'
+    },
+    {
+        label: 'Oldest Listings',
+        value: 'createdAt'
+    },
+    {
+        label: 'Newest Listings',
+        value: '-createdAt'
+    }
+]
