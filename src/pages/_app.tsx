@@ -4,6 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import Head from "next/head";
 import CssBaseline from '@mui/material/CssBaseline';
 import { theme, poppins } from "@/theme";
+import Header from "@/components/Header";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <main className={poppins.className}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Header />
           <Component {...pageProps} />
         </ThemeProvider>
       </main>
