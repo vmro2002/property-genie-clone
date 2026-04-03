@@ -18,7 +18,7 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
     <Box>
       <Box
         sx={{
-          display: "flex",
+          display: data.items.length > 0 ? "flex" : "none",
           justifyContent: "space-between",
           alignItems: "center",
           mb: 4,
@@ -64,7 +64,7 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
       container
       spacing={2}
       >
-        {data.items.map((item, index) => (
+        {data.items.length > 0 ? (data.items.map((item, index) => (
           <Grid
             key={item.id}
             size={{
@@ -97,7 +97,20 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
               }}
             />
           </Grid>
-        ))}
+        ))) : (
+          <Box 
+          sx={{ 
+            display: "flex", 
+            width: "100%",
+            justifyContent: "center", 
+            alignItems: "center",
+            height: "100px" 
+             }}>
+            <Typography variant="body2" color="text.secondary">
+              No results found
+            </Typography>
+          </Box>
+        )}
       </Grid>
 
       {data._meta.pageCount > 1 && (

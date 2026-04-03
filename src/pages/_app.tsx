@@ -70,7 +70,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <Container
               maxWidth="xl"
               sx={{
-                marginTop: 4
+                marginY: 4
               }}
               >
                 <Component {...pageProps} />
