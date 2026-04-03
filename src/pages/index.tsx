@@ -10,6 +10,7 @@ import { Box, Breadcrumbs, Typography } from "@mui/material";
 import SearchBar from "@/components/SearchBar";
 import {useSearchParams} from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps<{
   data: ListingsResponse;
@@ -24,6 +25,9 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
   const searchParams = useSearchParams();
+
+  const router = useRouter();
+  const {q, ...rest} = router.query;
   const keyword = searchParams.get("q");
 
   return (
@@ -42,7 +46,12 @@ export default function Home({
         }}
         >
           <Link 
-          href="/"
+          href={{
+            pathname: "/",
+            query: {
+              ...rest,
+            },
+          }}
           style={{
             textDecoration: 'none',
             color: 'inherit',
