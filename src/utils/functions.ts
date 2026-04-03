@@ -5,15 +5,23 @@ import Decimal from "decimal.js";
 
 export async function getListingsData(ctx: GetServerSidePropsContext): Promise<ListingsResponse> {
 
-    const { page, sort } = ctx.query;
+    const { page, sort, q } = ctx.query;
 
     const params = new URLSearchParams({
         page: String(page ?? 1),
         sort: String(sort ?? 'price'),
     });
+
+    const reqBody = {
+        name: q ?? undefined,
+    }
     
     const res = await fetch(`${API_ENDPOINT}/properties-mock?${params.toString()}`, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reqBody),
     });
 
     if (!res.ok) {

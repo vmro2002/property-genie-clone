@@ -8,6 +8,16 @@ import Header from "@/components/Header";
 import { Container } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      refetchOnWindowFocus: false,
+    }
+  }
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -39,32 +49,36 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={poppins.className}>
-        {loading? (
-          <div 
-          style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            height: '100vh' 
-          }}>
-            loading....
-          </div>
-        ) : (
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Header />
-            <Container
-            maxWidth="xl"
-            sx={{
-              marginTop: 4
-            }}
-            >
-              <Component {...pageProps} />
-            </Container>
-          </ThemeProvider>
-            )}
-      </main>
+      <QueryClientProvider
+      client={queryClient}
+      >
+        <main className={poppins.className}>
+          {loading? (
+            <div 
+            style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              height: '100vh' 
+            }}>
+              loading....
+            </div>
+          ) : (
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Header />
+              <Container
+              maxWidth="xl"
+              sx={{
+                marginTop: 4
+              }}
+              >
+                <Component {...pageProps} />
+              </Container>
+            </ThemeProvider>
+              )}
+        </main>
+      </QueryClientProvider>
   </>
 );
 }

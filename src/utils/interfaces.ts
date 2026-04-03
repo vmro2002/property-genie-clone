@@ -1,3 +1,5 @@
+import type { SearchLocation } from "./types";
+
 /**
  * Interface for ListingCard component
  */
@@ -42,4 +44,14 @@ export interface MenuProps {
 export interface ViewSelectorProps {
     isVerticalView: boolean;
     onChange: (isVertical: boolean) => void;
+}
+
+/**
+ * Interface for SearchBarDropDown component
+ */
+export interface SearchBarDropDownProps {
+    hasKeyword: boolean;
+    locationsIsFetching: boolean;
+    locationsError: Error | null;
+    locations: SearchLocation[] | undefined;
 }

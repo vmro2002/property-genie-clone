@@ -55,3 +55,9 @@ export type ListingsResponse = {
         perPage: number;
     }
 }
+
+export type SearchLocation = {
+    type: string;
+    title: string;
+    slug: string;
+}
