@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Button,
   Popper,
@@ -7,7 +7,8 @@ import {
   List,
   ListItemButton,
   ListItemText,
-  Divider
+  Divider,
+  ClickAwayListener,
 } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -21,128 +22,131 @@ export default function Menu({
   onClear,
   title,
 }: MenuProps) {
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const selectedLabel = items.find((i) => i.value === selectedItem)?.label ?? title ?? "Select";
 
   return (
-    <>
-      <Button
-        onClick={(e) => setAnchorEl(prev => prev ? null : e.currentTarget)}
-        variant="outlined"
-        startIcon={<FilterListIcon />}
-        endIcon={<KeyboardArrowDownIcon />}
-        sx={{
-          textTransform: "none",
-          borderColor: "divider",
-          color: "text.primary",
-          borderRadius: 2,
-          px: 2,
-          py: 1,
-          fontWeight: 500,
-          whiteSpace: "nowrap",
-        }}
-        onBlur={() => setAnchorEl(null)}
-      >
-        <Typography
-        sx={{
-          display: {
-            xs: 'none',
-            md: 'block'
-          }
-        }}
-        >
-          {selectedLabel}
-        </Typography>
-      </Button>
-
-      <Popper
-        open={Boolean(anchorEl)}
-        placement="bottom-end"
-        anchorEl={anchorEl}
-      >
-          <Box
-          component="div"
+    <ClickAwayListener onClickAway={() => setIsOpen(false)}>
+      <Box ref={containerRef} sx={{ position: "relative" }}>
+        <Button
+          onClick={() => setIsOpen((prev) => !prev)}
+          variant="outlined"
+          startIcon={<FilterListIcon />}
+          endIcon={<KeyboardArrowDownIcon />}
           sx={{
-            borderRadius: 3,
-            mt: 1,
-            minWidth: 240,
-            boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
-            backgroundColor: "background.default",
-            p: 2
+            textTransform: "none",
+            borderColor: "divider",
+            color: "text.primary",
+            borderRadius: 2,
+            px: 2,
+            py: 1,
+            fontWeight: 500,
+            whiteSpace: "nowrap",
           }}
-          onMouseDown={(e) => e.preventDefault()}
+        >
+          <Typography
+          sx={{
+            display: {
+              xs: 'none',
+              md: 'block'
+            }
+          }}
           >
-          {(title || onClear) && (
+            {selectedLabel}
+          </Typography>
+        </Button>
+
+        <Popper
+          open={isOpen}
+          placement="bottom-end"
+          anchorEl={containerRef.current}
+          disablePortal
+          sx={{ zIndex: 1300 }}
+        >
             <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                py: 1,
-              }}
+            component="div"
+            sx={{
+              borderRadius: 3,
+              mt: 1,
+              minWidth: 240,
+              boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
+              backgroundColor: "background.default",
+              p: 2
+            }}
             >
-              {title && (
-                <Typography variant="subtitle2" fontWeight={600}>
-                  {title}
-                </Typography>
-              )}
-              {onClear && (
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: "primary.main",
-                    cursor: "pointer",
-                    "&:hover": { textDecoration: "underline" },
-                  }}
-                  onClick={() => {
-                    onClear();
-                    setAnchorEl(null);
-                  }}
-                >
-                  Clear
-                </Typography>
-              )}
-            </Box>
-          )}
-
-          <Divider/>
-
-          <List>
-            {items.map((item) => (
-              <ListItemButton
-                key={item.value}
-                selected={item.value === selectedItem}
-                onClick={() => {
-                  onItemSelect(item.value);
-                  setAnchorEl(null);
-                }}
+            {(title || onClear) && (
+              <Box
                 sx={{
-                  borderRadius: 3,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                   py: 1,
-                  "&:hover": {
-                    color: "primary.main",
-                    bgcolor: 'primary.light',
-                  },
-                  "&.Mui-selected": {
-                    bgcolor: "transparent",
-                    color: "primary.main",
-                  },
                 }}
               >
-                <ListItemText
-                  primary={item.label}
-                />
-                {item.value === selectedItem && (
-                  <CheckIcon
-                    sx={{ fontSize: 18, color: "primary.main"}}
-                  />
+                {title && (
+                  <Typography variant="subtitle2" fontWeight={600}>
+                    {title}
+                  </Typography>
                 )}
-              </ListItemButton>
-            ))}
-          </List>
-        </Box>
-      </Popper>
-    </>
+                {onClear && (
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "primary.main",
+                      cursor: "pointer",
+                      "&:hover": { textDecoration: "underline" },
+                    }}
+                    onClick={() => {
+                      onClear();
+                      setIsOpen(false);
+                    }}
+                  >
+                    Clear
+                  </Typography>
+                )}
+              </Box>
+            )}
+
+            <Divider/>
+
+            <List>
+              {items.map((item) => (
+                <ListItemButton
+                  key={item.value}
+                  selected={item.value === selectedItem}
+                  onClick={() => {
+                    onItemSelect(item.value);
+                    setIsOpen(false);
+                  }}
+                  sx={{
+                    borderRadius: 3,
+                    py: 1,
+                    "&:hover": {
+                      color: "primary.main",
+                      bgcolor: 'primary.light',
+                    },
+                    "&.Mui-selected": {
+                      bgcolor: "transparent",
+                      color: "primary.main",
+                    },
+                  }}
+                >
+                  <ListItemText
+                    primary={item.label}
+                  />
+                  {item.value === selectedItem && (
+                    <CheckIcon
+                      sx={{ fontSize: 18, color: "primary.main"}}
+                    />
+                  )}
+                </ListItemButton>
+              ))}
+            </List>
+          </Box>
+        </Popper>
+      </Box>
+    </ClickAwayListener>
   );
 }
