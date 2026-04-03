@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Typography, Grid, Pagination } from "@mui/material";
+import { Box, Typography, Grid, Pagination, Button, Badge } from "@mui/material";
 import { useRouter } from "next/router";
 import ListingCard from "./ListingCard";
 import Menu from "./Menu";
@@ -37,6 +37,7 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
           alignItems: "center", 
           gap: 1.5 
         }}>
+          
           <Menu
             items={LISTINGS_SORT_OPTIONS}
             selectedItem={selectedSort}

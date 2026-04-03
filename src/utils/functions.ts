@@ -1,27 +1,60 @@
 import { ListingsResponse } from "./types";
 import { API_ENDPOINT } from "./constants";
-import type {GetServerSidePropsContext} from "next";
+import type { GetServerSidePropsContext } from "next";
+import type { ParsedUrlQuery } from "querystring";
 import Decimal from "decimal.js";
+import type { FilterFormValues } from "@/schemas/filterSchema";
+
+export const queryParamToNumberArray = (param: string | string[] | undefined): number[] => {
+    if (param === undefined) return [];
+    if (typeof param === "string") {
+        const n = Number(param);
+        return Number.isNaN(n) ? [] : [n];
+    }
+    return param
+        .map((v) => Number(v))
+        .filter((n): n is number => !Number.isNaN(n));
+};
+
+export function getFilterDefaultsFromQuery(query: ParsedUrlQuery): FilterFormValues {
+    const {
+        minPrice: minPriceQuery,
+        maxPrice: maxPriceQuery,
+        categories: categoriesQuery,
+        types: typesQuery,
+        bedRooms: bedRoomsQuery,
+        bathRooms: bathRoomsQuery,
+        furnishings: furnishingsQuery,
+    } = query;
+
+    return {
+        minPrice: minPriceQuery ? !isNaN(Number(minPriceQuery)) ? Number(minPriceQuery) : undefined : undefined,
+        maxPrice: maxPriceQuery ? !isNaN(Number(maxPriceQuery)) ? Number(maxPriceQuery) : undefined : undefined,
+        categories: categoriesQuery && typeof categoriesQuery === 'string' ? categoriesQuery : undefined,
+        types: typeof typesQuery === 'string'? [typesQuery] : Array.isArray(typesQuery) ? typesQuery : [],
+        bedRooms: queryParamToNumberArray(bedRoomsQuery),
+        bathRooms: queryParamToNumberArray(bathRoomsQuery),
+        furnishings: typeof furnishingsQuery === 'string' ? [furnishingsQuery] : Array.isArray(furnishingsQuery) ? furnishingsQuery : [],
+    };
+}
 
 export async function getListingsData(ctx: GetServerSidePropsContext): Promise<ListingsResponse> {
-
     const { page, sort, q } = ctx.query;
 
     const params = new URLSearchParams({
         page: String(page ?? 1),
-        sort: String(sort ?? 'price'),
+        sort: String(sort ?? "price"),
     });
 
-    const reqBody = {
-        name: q ?? undefined,
-    }
-    
+    const filter: FilterFormValues & {name?: string} = getFilterDefaultsFromQuery(ctx.query);
+    if (typeof q === "string") filter['name'] = q;
+
     const res = await fetch(`${API_ENDPOINT}/properties-mock?${params.toString()}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(reqBody),
+        body: JSON.stringify(filter),
     });
 
     if (!res.ok) {
@@ -46,4 +79,14 @@ export const getUserInitials = (name: string) => {
     const splitName = name.split(" ");
 
     return (`${splitName[0][0]}${splitName[1] ? splitName[1][0] : ''}`).toUpperCase();
+}
+
+export const safeParseFloat = (value: string) => {
+    try {
+        const float = parseFloat(value);
+        if (isNaN(float)) return undefined;
+        return float;
+    } catch {
+        return undefined;
+    }
 }

@@ -55,3 +55,14 @@ export interface SearchBarDropDownProps {
     locationsError: Error | null;
     locations: SearchLocation[] | undefined;
 }
+
+/**
+ * Interface for FilterOptionToggle component
+ */
+export interface FilterOptionToggleProps {
+    label: string;
+    value: string | number;
+    icon?: React.ReactElement;
+    isSelected: boolean;
+    onClick: (value: string | number) => void;
+}
