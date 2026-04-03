@@ -6,8 +6,10 @@ import type {
 import { getListingsData } from "@/utils/functions";
 import { ListingsResponse } from "@/utils/types";
 import ListingsGrid from "@/components/ListingsGrid";
-import { Box } from "@mui/material";
+import { Box, Breadcrumbs, Typography } from "@mui/material";
 import SearchBar from "@/components/SearchBar";
+import {useSearchParams} from "next/navigation";
+import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps<{
   data: ListingsResponse;
@@ -20,6 +22,10 @@ export const getServerSideProps: GetServerSideProps<{
 export default function Home({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get("q");
+
   return (
     <Box
     sx={{
@@ -28,6 +34,31 @@ export default function Home({
       gap: 2
     }}
     >
+      {keyword && (
+        <Breadcrumbs
+        separator=">"
+        sx={{
+          color: 'primary.main'
+        }}
+        >
+          <Link 
+          href="/"
+          style={{
+            textDecoration: 'none',
+            color: 'inherit',
+          }}
+          >
+            Home
+          </Link>
+          <Typography 
+          variant="body2" 
+          color="text.secondary"
+          >
+            Search Results for "{keyword}"
+          </Typography>
+
+        </Breadcrumbs>
+      )}
       <Box
       sx={{
         border: 1,
