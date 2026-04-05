@@ -32,7 +32,7 @@ https://property-genie-clone.vercel.app/
 ### Setup
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 npm install
 npm run dev
 ```
@@ -41,7 +41,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### AI Feature Prerequisite
 
-The AI search feature requires an OpenAI API key. After copying `.env.example`, open `.env.local` and set:
+The AI search feature requires an OpenAI API key. After copying `.env.example`, open `.env` and set:
 
 ```
 OPENAI_API_KEY=your-key-here
