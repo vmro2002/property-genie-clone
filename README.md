@@ -18,6 +18,8 @@ A real estate listings platform built as a job interview task, featuring server-
 
 ## Live Link
 
+https://property-genie-clone.vercel.app/
+
 ---
 
 ## Live Demo
