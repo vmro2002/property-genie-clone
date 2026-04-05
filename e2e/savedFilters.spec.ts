@@ -8,10 +8,10 @@ const MOCK_LISTINGS = {
 
 test.beforeEach(async ({ page }) => {
   await page.route("**/api/properties-mock**", (route) =>
-    route.fulfill({ json: MOCK_LISTINGS })
+    route.fulfill({ json: MOCK_LISTINGS }),
   );
   await page.route("**/api/locations**", (route) =>
-    route.fulfill({ json: [] })
+    route.fulfill({ json: [] }),
   );
   // Clear localStorage before each test so saved filters don't bleed between tests
   await page.addInitScript(() => {
@@ -54,7 +54,10 @@ test.describe("Saved filters flow", () => {
   }) => {
     await page.goto("/");
 
-    await page.getByRole("button", { name: /^save$/i }).first().click();
+    await page
+      .getByRole("button", { name: /^save$/i })
+      .first()
+      .click();
 
     await expect(page.getByText(/no filters to save/i)).toBeVisible();
   });
@@ -65,7 +68,10 @@ test.describe("Saved filters flow", () => {
     await page.goto("/?state=Selangor&section=rent");
 
     // Save the filter
-    await page.getByRole("button", { name: /^save$/i }).first().click();
+    await page
+      .getByRole("button", { name: /^save$/i })
+      .first()
+      .click();
     await expect(page.getByText(/saved successfully/i)).toBeVisible();
 
     // Open Saved modal
@@ -86,7 +92,10 @@ test.describe("Saved filters flow", () => {
   }) => {
     await page.goto("/?section=sale&categories=condo");
 
-    await page.getByRole("button", { name: /^save$/i }).first().click();
+    await page
+      .getByRole("button", { name: /^save$/i })
+      .first()
+      .click();
     await expect(page.getByText(/saved successfully/i)).toBeVisible();
 
     // Open Saved modal

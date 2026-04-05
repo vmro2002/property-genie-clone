@@ -107,7 +107,7 @@ describe("useFilterSave", () => {
       // Navigate away, then apply the saved filter
       act(() => {
         mockRouter.setCurrentUrl("/");
-      })
+      });
 
       act(() => {
         result.current.applySavedFilter(savedId);

@@ -8,10 +8,10 @@ const MOCK_LISTINGS = {
 
 test.beforeEach(async ({ page }) => {
   await page.route("**/api/properties-mock**", (route) =>
-    route.fulfill({ json: MOCK_LISTINGS })
+    route.fulfill({ json: MOCK_LISTINGS }),
   );
   await page.route("**/api/locations**", (route) =>
-    route.fulfill({ json: [] })
+    route.fulfill({ json: [] }),
   );
 });
 
@@ -25,7 +25,7 @@ test.describe("Filter flow", () => {
     await page.getByRole("button", { name: /filter/i }).click();
 
     // Fill in the min price field
-    const minPriceInput = page.getByTestId('min-price-input').locator('input');
+    const minPriceInput = page.getByTestId("min-price-input").locator("input");
     await minPriceInput.fill("1000");
 
     // Apply the filters
@@ -41,8 +41,8 @@ test.describe("Filter flow", () => {
 
     await page.getByRole("button", { name: /filter/i }).click();
 
-    const minPriceInput = page.getByTestId('min-price-input').locator('input');
-    const maxPriceInput = page.getByTestId('max-price-input').locator('input');
+    const minPriceInput = page.getByTestId("min-price-input").locator("input");
+    const maxPriceInput = page.getByTestId("max-price-input").locator("input");
     await minPriceInput.fill("5000");
     await maxPriceInput.fill("1000");
 
@@ -50,7 +50,7 @@ test.describe("Filter flow", () => {
 
     // The zod refinement error should surface
     await expect(
-      page.getByText(/minimum price must be less than maximum price/i)
+      page.getByText(/minimum price must be less than maximum price/i),
     ).toBeVisible();
 
     // URL must NOT have changed

@@ -18,11 +18,11 @@ const MOCK_LOCATIONS = [
 test.beforeEach(async ({ page }) => {
   // Intercept the properties API (called in getServerSideProps)
   await page.route("**/api/properties-mock**", (route) =>
-    route.fulfill({ json: MOCK_LISTINGS })
+    route.fulfill({ json: MOCK_LISTINGS }),
   );
   // Intercept the locations API (called client-side through /api/locations)
   await page.route("**/api/locations**", (route) =>
-    route.fulfill({ json: MOCK_LOCATIONS })
+    route.fulfill({ json: MOCK_LOCATIONS }),
   );
 });
 
@@ -37,9 +37,7 @@ test.describe("Search flow", () => {
     await searchInput.press("Enter");
 
     await expect(page).toHaveURL(/q=KLCC/);
-    await expect(
-      page.getByText(/search results for "KLCC"/i)
-    ).toBeVisible();
+    await expect(page.getByText(/search results for "KLCC"/i)).toBeVisible();
   });
 
   test("clicking a State suggestion navigates to ?state=... URL", async ({

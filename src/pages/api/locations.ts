@@ -7,9 +7,8 @@ import { API_ENDPOINT } from "@/utils/constants";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
-
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -22,11 +21,13 @@ export default async function handler(
 
   try {
     const response = await fetch(
-      `${API_ENDPOINT}/locations-mock?keyword=${encodeURIComponent(keyword)}`
+      `${API_ENDPOINT}/locations-mock?keyword=${encodeURIComponent(keyword)}`,
     );
 
     if (!response.ok) {
-      return res.status(response.status).json({ error: "Upstream request failed" });
+      return res
+        .status(response.status)
+        .json({ error: "Upstream request failed" });
     }
 
     const data = await response.json();

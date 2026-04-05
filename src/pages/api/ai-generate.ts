@@ -24,7 +24,7 @@ Default to "sale" if the intent is unclear.`;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -45,24 +45,27 @@ export default async function handler(
       model: "gpt-4o-mini",
       input: [
         {
-          role: 'system',
-          content: SYSTEM_PROMPT
+          role: "system",
+          content: SYSTEM_PROMPT,
         },
         {
-          role: 'user',
-          content: description
-        }
+          role: "user",
+          content: description,
+        },
       ],
       text: {
         format: zodTextFormat(aiGenerationSchema, "property_search"),
-      }
-     
+      },
     });
 
     const result = response.output_parsed;
 
     return res.status(200).json(result);
   } catch {
-    return res.status(500).json({ error: "Failed to generate search parameters. Please try again." });
+    return res
+      .status(500)
+      .json({
+        error: "Failed to generate search parameters. Please try again.",
+      });
   }
 }

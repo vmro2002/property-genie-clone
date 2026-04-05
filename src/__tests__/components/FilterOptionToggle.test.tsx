@@ -11,7 +11,7 @@ describe("FilterOptionToggle", () => {
         value={2}
         isSelected={false}
         onClick={jest.fn()}
-      />
+      />,
     );
     expect(screen.getByText("2 Bedrooms")).toBeInTheDocument();
   });
@@ -26,7 +26,7 @@ describe("FilterOptionToggle", () => {
         value="fully-furnished"
         isSelected={false}
         onClick={handleClick}
-      />
+      />,
     );
 
     await user.click(screen.getByText("Fully Furnished"));
@@ -45,7 +45,7 @@ describe("FilterOptionToggle", () => {
         value={3}
         isSelected={true}
         onClick={handleClick}
-      />
+      />,
     );
 
     await user.click(screen.getByText("3"));
@@ -60,7 +60,7 @@ describe("FilterOptionToggle", () => {
         value={0}
         isSelected={false}
         onClick={jest.fn()}
-      />
+      />,
     );
     expect(screen.getByText("Studio")).toBeInTheDocument();
 
@@ -70,7 +70,7 @@ describe("FilterOptionToggle", () => {
         value={0}
         isSelected={true}
         onClick={jest.fn()}
-      />
+      />,
     );
     expect(screen.getByText("Studio")).toBeInTheDocument();
   });

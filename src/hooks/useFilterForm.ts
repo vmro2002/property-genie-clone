@@ -1,9 +1,6 @@
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  filterSchema,
-  type FilterFormValues,
-} from "@/schemas/filterSchema";
+import { filterSchema, type FilterFormValues } from "@/schemas/filterSchema";
 import { useRouter } from "next/router";
 import { useState, useMemo } from "react";
 import { getFilterDefaultsFromQuery } from "@/utils/functions";
@@ -21,17 +18,17 @@ export function useFilterForm() {
     bathRooms: bathRoomsQuery,
     furnishings: furnishingsQuery,
     ...restQuery
-  } = router.query
+  } = router.query;
 
   const activeFilterCount = ((): number => {
-    let count = 0
+    let count = 0;
     if (minPriceQuery) count++;
     if (maxPriceQuery) count++;
     if (categoriesQuery) count++;
-    if (typesQuery?.length) count ++;
-    if (bedRoomsQuery?.length) count ++;
-    if (bathRoomsQuery?.length) count ++;
-    if (furnishingsQuery?.length) count ++;
+    if (typesQuery?.length) count++;
+    if (bedRoomsQuery?.length) count++;
+    if (bathRoomsQuery?.length) count++;
+    if (furnishingsQuery?.length) count++;
     return count;
   })();
 
@@ -42,7 +39,7 @@ export function useFilterForm() {
     formState: { errors },
     control,
     setValue,
-    getValues
+    getValues,
   } = useForm<FilterFormValues>({
     resolver: zodResolver(filterSchema),
     defaultValues: getFilterDefaultsFromQuery(router.query),
@@ -80,69 +77,82 @@ export function useFilterForm() {
     if (!current) return;
 
     if (current.includes(type)) {
-      setValue("types", current.filter((t) => t !== type));
+      setValue(
+        "types",
+        current.filter((t) => t !== type),
+      );
     } else {
       setValue("types", [...current, type]);
     }
-  }
+  };
 
   const toggleBedrooms = (bedrooms: number) => {
     const current = getValues("bedRooms");
     if (!current) return;
 
     if (current.includes(bedrooms)) {
-      setValue("bedRooms", current.filter((b) => b !== bedrooms));
+      setValue(
+        "bedRooms",
+        current.filter((b) => b !== bedrooms),
+      );
     } else {
       setValue("bedRooms", [...current, bedrooms]);
     }
-  }
+  };
 
   const toggleBathrooms = (bathrooms: number) => {
     const current = getValues("bathRooms");
     if (!current) return;
 
     if (current.includes(bathrooms)) {
-      setValue("bathRooms", current.filter((b) => b !== bathrooms));
+      setValue(
+        "bathRooms",
+        current.filter((b) => b !== bathrooms),
+      );
     } else {
       setValue("bathRooms", [...current, bathrooms]);
     }
-  }
+  };
 
   const toggleFurnishings = (furnishing: string) => {
     const current = getValues("furnishings");
     if (!current) return;
 
     if (current.includes(furnishing)) {
-      setValue("furnishings", current.filter((f) => f !== furnishing));
+      setValue(
+        "furnishings",
+        current.filter((f) => f !== furnishing),
+      );
     } else {
       setValue("furnishings", [...current, furnishing]);
     }
-  }
+  };
 
   const applyFilters = handleSubmit((data) => {
     // Manually construct the query object to avoid empty queries params in the url
-    const queryObj: {[key: string]: string | string[] | number |number[]} = {};
+    const queryObj: { [key: string]: string | string[] | number | number[] } =
+      {};
 
-    if (data.minPrice) queryObj['minPrice'] = data.minPrice;
-    if (data.maxPrice) queryObj['maxPrice'] = data.maxPrice;
+    if (data.minPrice) queryObj["minPrice"] = data.minPrice;
+    if (data.maxPrice) queryObj["maxPrice"] = data.maxPrice;
 
-    if (data.categories) queryObj['categories'] = data.categories;
+    if (data.categories) queryObj["categories"] = data.categories;
 
-    if (data.types?.length) queryObj['types'] = data.types;
+    if (data.types?.length) queryObj["types"] = data.types;
 
-    if (data.bedRooms?.length) queryObj['bedRooms'] = data.bedRooms;
+    if (data.bedRooms?.length) queryObj["bedRooms"] = data.bedRooms;
 
-    if (data.bathRooms?.length) queryObj['bathRooms'] = data.bathRooms;
+    if (data.bathRooms?.length) queryObj["bathRooms"] = data.bathRooms;
 
-    if (data.furnishings?.length) queryObj['furnishings'] = data.furnishings;
+    if (data.furnishings?.length) queryObj["furnishings"] = data.furnishings;
 
     router.push({
       pathname: router.pathname,
       query: {
         ...restQuery,
         ...queryObj,
-      }
-    })
+      },
+    });
   });
 
   const clearFilters = () => {
@@ -151,14 +161,14 @@ export function useFilterForm() {
       query: {
         ...restQuery,
         page: 1,
-      }
-    })
-  }
+      },
+    });
+  };
 
   const handleCloseFilter = () => {
-    setFilterOpen(false)
-    reset()
-  }
+    setFilterOpen(false);
+    reset();
+  };
 
   return {
     register,

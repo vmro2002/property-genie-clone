@@ -54,7 +54,11 @@ export default function NotFound() {
           <Typography variant="h5" fontWeight={600} color="text.primary">
             Page not found
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 360 }}>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ maxWidth: 360 }}
+          >
             The page you&apos;re looking for doesn&apos;t exist or may have been
             moved. Try going back home to continue browsing properties.
           </Typography>

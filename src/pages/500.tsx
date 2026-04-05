@@ -58,9 +58,14 @@ export default function ServerError() {
           <Typography variant="h5" fontWeight={600} color="text.primary">
             Something went wrong
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 360 }}>
-            We couldn&apos;t load this page right now. It&apos;s usually temporary —
-            try refreshing, or head back home to keep exploring listings.
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ maxWidth: 360 }}
+          >
+            We couldn&apos;t load this page right now. It&apos;s usually
+            temporary — try refreshing, or head back home to keep exploring
+            listings.
           </Typography>
           <Box
             sx={{

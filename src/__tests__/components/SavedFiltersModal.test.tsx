@@ -15,25 +15,19 @@ describe("SavedFiltersModal", () => {
   describe("empty state", () => {
     it("shows the empty state message when isEmpty is true", () => {
       render(
-        <SavedFiltersModal
-          {...defaultProps}
-          savedItems={[]}
-          isEmpty={true}
-        />
+        <SavedFiltersModal {...defaultProps} savedItems={[]} isEmpty={true} />,
       );
       expect(screen.getByText(/no saved searches yet/i)).toBeInTheDocument();
     });
 
     it("does not render any list items in the empty state", () => {
       render(
-        <SavedFiltersModal
-          {...defaultProps}
-          savedItems={[]}
-          isEmpty={true}
-        />
+        <SavedFiltersModal {...defaultProps} savedItems={[]} isEmpty={true} />,
       );
       // No delete buttons should be present
-      expect(screen.queryByLabelText(/delete saved search/i)).not.toBeInTheDocument();
+      expect(
+        screen.queryByLabelText(/delete saved search/i),
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -49,7 +43,7 @@ describe("SavedFiltersModal", () => {
           {...defaultProps}
           savedItems={savedItems}
           isEmpty={false}
-        />
+        />,
       );
       // Each filter shows the formatted primary text
       expect(screen.getByText("Rent • Selangor")).toBeInTheDocument();
@@ -62,7 +56,7 @@ describe("SavedFiltersModal", () => {
           {...defaultProps}
           savedItems={savedItems}
           isEmpty={false}
-        />
+        />,
       );
       const deleteButtons = screen.getAllByLabelText(/delete saved search/i);
       expect(deleteButtons).toHaveLength(2);
@@ -78,7 +72,7 @@ describe("SavedFiltersModal", () => {
           savedItems={savedItems}
           isEmpty={false}
           onDelete={onDelete}
-        />
+        />,
       );
 
       const deleteButtons = screen.getAllByLabelText(/delete saved search/i);
@@ -98,7 +92,7 @@ describe("SavedFiltersModal", () => {
           savedItems={savedItems}
           isEmpty={false}
           onApply={onApply}
-        />
+        />,
       );
 
       // Click the first filter's primary text (the list item button)
@@ -120,7 +114,7 @@ describe("SavedFiltersModal", () => {
           savedItems={[]}
           isEmpty={true}
           onClose={onClose}
-        />
+        />,
       );
 
       // The footer text button has visible text "Close"; use getByText to avoid
@@ -139,7 +133,7 @@ describe("SavedFiltersModal", () => {
           savedItems={[]}
           isEmpty={true}
           onClose={onClose}
-        />
+        />,
       );
 
       await user.click(screen.getByLabelText(/^close$/i));

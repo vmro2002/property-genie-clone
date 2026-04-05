@@ -1,0 +1,13 @@
+.next
+out
+build
+node_modules 
+playwright-report
+test-results
+.env
+.env.example
+next-env.d.ts
+README.md
+*.tsbuildinfo
+coverage
+dist

@@ -13,35 +13,25 @@ import { useSearchForm } from "@/hooks/useSearchForm";
 import SearchBarDropDown from "./SearchBarDropDown";
 
 export default function SearchBar() {
-
-  const { 
-    register,
-    setValue,
-    onSubmit, 
-    keyword,
-    onLocationClick,
-  } = useSearchForm();
+  const { register, setValue, onSubmit, keyword, onLocationClick } =
+    useSearchForm();
 
   const [isFocused, setIsFocused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const {
-    locations,
-    locationsIsFetching,
-    locationsError,
-    debouncedValue,
-  } = useSearchLocationsQuery(keyword);
+  const { locations, locationsIsFetching, locationsError, debouncedValue } =
+    useSearchLocationsQuery(keyword);
 
   const hasKeyword = debouncedValue.length > 0;
 
   return (
     <ClickAwayListener onClickAway={() => setIsFocused(false)}>
-      <Box 
-      ref={containerRef} 
-      sx={{ 
-        position: "relative", 
-        width: "100%" 
-      }}
+      <Box
+        ref={containerRef}
+        sx={{
+          position: "relative",
+          width: "100%",
+        }}
       >
         <Box
           component="form"
@@ -53,12 +43,12 @@ export default function SearchBar() {
             display: "flex",
             alignItems: "center",
             border: 1,
-            borderColor: 'divider',
-            borderTopLeftRadius: '24px',
-            borderTopRightRadius: '24px',
-            borderBottomLeftRadius: isFocused ? '0px' : '24px',
-            borderBottomRightRadius: isFocused ? '0px' : '24px',
-            boxShadow: 'rgb(170, 170, 170) 1px 1px 5px',
+            borderColor: "divider",
+            borderTopLeftRadius: "24px",
+            borderTopRightRadius: "24px",
+            borderBottomLeftRadius: isFocused ? "0px" : "24px",
+            borderBottomRightRadius: isFocused ? "0px" : "24px",
+            boxShadow: "rgb(170, 170, 170) 1px 1px 5px",
             px: 2,
             py: 1.25,
             gap: 1,
@@ -77,10 +67,7 @@ export default function SearchBar() {
             autoComplete="off"
           />
           {hasKeyword && (
-            <IconButton
-              size="small"
-              onClick={() => setValue("q", "")}
-            >
+            <IconButton size="small" onClick={() => setValue("q", "")}>
               <CloseIcon fontSize="small" />
             </IconButton>
           )}
@@ -100,19 +87,19 @@ export default function SearchBar() {
             onMouseDown={(e) => e.preventDefault()}
             sx={{
               bgcolor: "background.default",
-              borderBottomLeftRadius: '24px',
-              borderBottomRightRadius: '24px',
+              borderBottomLeftRadius: "24px",
+              borderBottomRightRadius: "24px",
               boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
               overflowY: "scroll",
-              maxHeight: '300px',
+              maxHeight: "300px",
             }}
           >
             <SearchBarDropDown
-                hasKeyword={hasKeyword}
-                locationsIsFetching={locationsIsFetching}
-                locationsError={locationsError}
-                locations={locations}
-                onLocationClick={(location) => onLocationClick(location)}
+              hasKeyword={hasKeyword}
+              locationsIsFetching={locationsIsFetching}
+              locationsError={locationsError}
+              locations={locations}
+              onLocationClick={(location) => onLocationClick(location)}
             />
           </Box>
         </Popper>

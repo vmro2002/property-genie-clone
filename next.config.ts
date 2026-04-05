@@ -6,26 +6,26 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   turbopack: {
     resolveAlias: {
-      '@mui/styled-engine': '@mui/styled-engine-sc',
-    }
+      "@mui/styled-engine": "@mui/styled-engine-sc",
+    },
   },
   // Allow images from all origins to be optimized for demo purpose only
   images: {
     localPatterns: [
       {
-        pathname: '/**',
-      }
+        pathname: "/**",
+      },
     ],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '*',
-      }
-    ]
+        protocol: "https",
+        hostname: "*",
+      },
+    ],
   },
   compiler: {
     styledComponents: true,
-  }
+  },
 };
 
 export default nextConfig;

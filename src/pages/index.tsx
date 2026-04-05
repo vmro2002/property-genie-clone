@@ -6,7 +6,14 @@ import type {
 import { getListingsData } from "@/utils/functions";
 import { ListingsResponse } from "@/utils/types";
 import ListingsGrid from "@/components/ListingsGrid";
-import { Box, Breadcrumbs, Typography, Button, Snackbar, Alert } from "@mui/material";
+import {
+  Box,
+  Breadcrumbs,
+  Typography,
+  Button,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import BookmarksOutlinedIcon from "@mui/icons-material/BookmarksOutlined";
 import SearchBar from "@/components/SearchBar/SearchBar";
@@ -23,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (ctx: GetServerSidePropsContext) => {
   ctx.res.setHeader(
     "Cache-Control",
-    "public, s-maxage=60, stale-while-revalidate=300"
+    "public, s-maxage=60, stale-while-revalidate=300",
   );
 
   const data = await getListingsData(ctx);
@@ -34,7 +41,6 @@ export const getServerSideProps: GetServerSideProps<{
 export default function Home({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-
   const router = useRouter();
   const { q, state, city } = router.query;
 
@@ -47,105 +53,101 @@ export default function Home({
     closeToast,
     setSavedModalOpen,
     removeSavedFilter,
-    applySavedFilter
+    applySavedFilter,
   } = useFilterSave();
 
   return (
     <Box
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 2
-    }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
     >
       {(q || city || state) && (
         <Breadcrumbs
-        separator=">"
-        sx={{
-          color: 'primary.main'
-        }}
-        >
-          <Link 
-          href="/"
-          style={{
-            textDecoration: 'none',
-            color: 'inherit',
+          separator=">"
+          sx={{
+            color: "primary.main",
           }}
+        >
+          <Link
+            href="/"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+            }}
           >
             Home
           </Link>
-          <Typography 
-          variant="body2" 
-          color="text.secondary"
-          >
+          <Typography variant="body2" color="text.secondary">
             {q && `Search Results for "${q}"`}
             {city && city}
             {state && state}
           </Typography>
-
         </Breadcrumbs>
       )}
       <Box
-      sx={{
-        border: 1,
-        borderColor: 'divider',
-        borderRadius: 3,
-        p: 2,
-        display: 'flex',
-        flexDirection: {
-          xs: 'column',
-          md: 'row',
-        },
-        gap: {
-          xs: 2,
-          md: 1
-        }
-      }}
-      >
-        <SearchBar/>
-        <Box
         sx={{
-          display: 'flex',
-          flexWrap: {
-            xs: 'wrap',
-            sm: 'nowrap'
+          border: 1,
+          borderColor: "divider",
+          borderRadius: 3,
+          p: 2,
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            md: "row",
           },
-          gap: 1,
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          gap: {
+            xs: 2,
+            md: 1,
+          },
         }}
+      >
+        <SearchBar />
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: {
+              xs: "wrap",
+              sm: "nowrap",
+            },
+            gap: 1,
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
           <Box
-          sx={{
-            display: 'flex',
-            gap: 1,
-            flexWrap: {
-              xs: 'wrap',
-              sm: 'nowrap'
-            }
-          }}
+            sx={{
+              display: "flex",
+              gap: 1,
+              flexWrap: {
+                xs: "wrap",
+                sm: "nowrap",
+              },
+            }}
           >
             <FilterModal />
             <PropertySectionSelector />
           </Box>
           <Box
-           sx={{
-            display: 'flex',
-            gap: 1,
-            flexWrap: {
-              xs: 'wrap',
-              sm: 'nowrap'
-            }
-          }}
+            sx={{
+              display: "flex",
+              gap: 1,
+              flexWrap: {
+                xs: "wrap",
+                sm: "nowrap",
+              },
+            }}
           >
             <Button
               variant="outlined"
               startIcon={<BookmarkAddOutlinedIcon />}
               onClick={saveFilter}
               sx={{
-                textTransform: 'none',
-                borderColor: 'divider',
-                color: 'text.primary',
+                textTransform: "none",
+                borderColor: "divider",
+                color: "text.primary",
                 borderRadius: 2,
                 px: 2,
                 py: 1,
@@ -159,9 +161,9 @@ export default function Home({
               startIcon={<BookmarksOutlinedIcon />}
               onClick={() => setSavedModalOpen(true)}
               sx={{
-                textTransform: 'none',
-                borderColor: 'divider',
-                color: 'text.primary',
+                textTransform: "none",
+                borderColor: "divider",
+                color: "text.primary",
                 borderRadius: 2,
                 px: 2,
                 py: 1,
@@ -185,13 +187,13 @@ export default function Home({
         open={toast.open}
         autoHideDuration={2000}
         onClose={closeToast}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
           onClose={closeToast}
           severity={toast.severity}
           variant="filled"
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
           {toast.message}
         </Alert>
@@ -199,5 +201,5 @@ export default function Home({
       <ListingsGrid data={data} />
       <AiSearchModal />
     </Box>
-  )
+  );
 }

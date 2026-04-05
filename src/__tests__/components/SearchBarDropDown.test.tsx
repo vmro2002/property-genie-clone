@@ -15,7 +15,7 @@ describe("SearchBarDropDown", () => {
         locationsError={null}
         locations={undefined}
         onLocationClick={noop}
-      />
+      />,
     );
     expect(screen.getByText(/start typing to search/i)).toBeInTheDocument();
   });
@@ -28,7 +28,7 @@ describe("SearchBarDropDown", () => {
         locationsError={null}
         locations={undefined}
         onLocationClick={noop}
-      />
+      />,
     );
     // CircularProgress renders an svg with role="progressbar"
     expect(screen.getByRole("progressbar")).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe("SearchBarDropDown", () => {
         locationsError={new Error("Network error")}
         locations={undefined}
         onLocationClick={noop}
-      />
+      />,
     );
     expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
   });
@@ -55,7 +55,7 @@ describe("SearchBarDropDown", () => {
         locationsError={null}
         locations={[]}
         onLocationClick={noop}
-      />
+      />,
     );
     expect(screen.getByText(/no results found/i)).toBeInTheDocument();
   });
@@ -72,7 +72,7 @@ describe("SearchBarDropDown", () => {
         locationsError={null}
         locations={locations}
         onLocationClick={noop}
-      />
+      />,
     );
     expect(screen.getByText("Selangor")).toBeInTheDocument();
     expect(screen.getByText("Kuala Lumpur")).toBeInTheDocument();
@@ -94,7 +94,7 @@ describe("SearchBarDropDown", () => {
         locationsError={null}
         locations={locations}
         onLocationClick={handleClick}
-      />
+      />,
     );
 
     await user.click(screen.getByText("Kuala Lumpur"));

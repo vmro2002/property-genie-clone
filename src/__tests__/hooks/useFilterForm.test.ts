@@ -15,7 +15,7 @@ describe("useFilterForm — activeFilterCount", () => {
 
   it("counts each distinct filter param as +1", () => {
     mockRouter.setCurrentUrl(
-      "/?minPrice=500&maxPrice=2000&categories=residential&types=apartment&bedRooms=2&bathRooms=1&furnishings=fully-furnished"
+      "/?minPrice=500&maxPrice=2000&categories=residential&types=apartment&bedRooms=2&bathRooms=1&furnishings=fully-furnished",
     );
     const { result } = renderHook(() => useFilterForm());
     // 7 filter params = 7
@@ -157,7 +157,7 @@ describe("useFilterForm — showPropertyTypes", () => {
 describe("useFilterForm — clearFilters", () => {
   it("removes all filter params from the URL", () => {
     mockRouter.setCurrentUrl(
-      "/?minPrice=500&maxPrice=2000&categories=residential&page=2"
+      "/?minPrice=500&maxPrice=2000&categories=residential&page=2",
     );
     const { result } = renderHook(() => useFilterForm());
 

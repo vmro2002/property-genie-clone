@@ -12,8 +12,9 @@ const config: Config = {
     "^@/(.*)$": "<rootDir>/src/$1",
     // Mock Next.js router for hook tests
     "^next/router$": "<rootDir>/node_modules/next-router-mock",
-    "^next/navigation$": "<rootDir>/node_modules/next-router-mock/dist/navigation",
-    // Match the MUI styled-engine alias in next.config.ts 
+    "^next/navigation$":
+      "<rootDir>/node_modules/next-router-mock/dist/navigation",
+    // Match the MUI styled-engine alias in next.config.ts
     "^@mui/styled-engine$": "<rootDir>/node_modules/@mui/styled-engine-sc",
   },
   testMatch: ["<rootDir>/src/__tests__/**/*.(test|spec).(ts|tsx)"],

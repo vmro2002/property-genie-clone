@@ -7,16 +7,15 @@ import ViewSelector from "./ViewSelector";
 import { useListingsSort } from "@/hooks/useListingsSort";
 import { LISTINGS_SORT_OPTIONS } from "@/utils/constants";
 import type { ListingsResponse } from "@/utils/types";
-import {capitalizeFirstLetter} from "@/utils/functions";
+import { capitalizeFirstLetter } from "@/utils/functions";
 
 export default function ListingsGrid({ data }: { data: ListingsResponse }) {
-
   const router = useRouter();
   const [isVerticalView, setIsVerticalView] = useState(true);
   const { selectedSort, handleSortChange, clearSort } = useListingsSort();
 
-  const totalCount = data._meta.totalCount
-  const section = router.query.section as string | undefined ?? "sale";
+  const totalCount = data._meta.totalCount;
+  const section = (router.query.section as string | undefined) ?? "sale";
 
   return (
     <Box>
@@ -31,17 +30,18 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
         }}
       >
         <Typography variant="h6" fontWeight={600} color="text.primary">
-          {totalCount.toLocaleString()} Propert{totalCount == 1 ? "y" : "ies"} for {capitalizeFirstLetter(section)} in Malaysia
+          {totalCount.toLocaleString()} Propert{totalCount == 1 ? "y" : "ies"}{" "}
+          for {capitalizeFirstLetter(section)} in Malaysia
         </Typography>
 
-        <Box 
-        sx={{ 
-          display: "flex", 
-          flexWrap: "wrap", 
-          alignItems: "center", 
-          gap: 1.5 
-        }}>
-          
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: 1.5,
+          }}
+        >
           <Menu
             items={LISTINGS_SORT_OPTIONS}
             selectedItem={selectedSort}
@@ -50,67 +50,67 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
             title="Sort By"
           />
           <Box
-          sx={{
-            display: {
-              xs: 'none',
-              md: 'block'
-            }
-          }}
+            sx={{
+              display: {
+                xs: "none",
+                md: "block",
+              },
+            }}
           >
             <ViewSelector
               isVerticalView={isVerticalView}
               onChange={setIsVerticalView}
-              />
+            />
           </Box>
         </Box>
       </Box>
 
-      <Grid
-      container
-      spacing={2}
-      >
-        {data.items.length > 0 ? (data.items.map((item, index) => (
-          <Grid
-            key={item.id}
-            size={{
-              xs: 12,
-              sm: isVerticalView ? 6 : 12,
-              md: isVerticalView ? 4 : 12,
-              lg: isVerticalView? 3 : 12,
-            }}
+      <Grid container spacing={2}>
+        {data.items.length > 0 ? (
+          data.items.map((item, index) => (
+            <Grid
+              key={item.id}
+              size={{
+                xs: 12,
+                sm: isVerticalView ? 6 : 12,
+                md: isVerticalView ? 4 : 12,
+                lg: isVerticalView ? 3 : 12,
+              }}
+              sx={{
+                "& .MuiCard-root": {
+                  maxWidth: "100%",
+                  width: "100%",
+                  height: "100%",
+                },
+              }}
+            >
+              <ListingCard
+                isVertical={isVerticalView}
+                imgUrl={item.image}
+                eagerLoadImg={index <= 8}
+                price={item.price}
+                name={item.name}
+                address={`${item.city}, ${item.postcode}, ${item.state}, ${item.country}`}
+                bedRomms={item.bedRooms}
+                bathRooms={item.bathRooms}
+                floorSize={item.floorSize}
+                account={{
+                  name: item.account.name,
+                  phone: item.account.phone,
+                }}
+              />
+            </Grid>
+          ))
+        ) : (
+          <Box
             sx={{
-              "& .MuiCard-root": { 
-                maxWidth: "100%", 
-                width: "100%",
-                height: "100%"
-              },
+              display: "flex",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100px",
             }}
           >
-            <ListingCard
-              isVertical={isVerticalView}
-              imgUrl={item.image}
-              eagerLoadImg={index <= 8}
-              price={item.price}
-              name={item.name}
-              address={`${item.city}, ${item.postcode}, ${item.state}, ${item.country}`}
-              bedRomms={item.bedRooms}
-              bathRooms={item.bathRooms}
-              floorSize={item.floorSize}
-              account={{
-                name: item.account.name,
-                phone: item.account.phone,
-              }}
-            />
-          </Grid>
-        ))) : (
-          <Box 
-          sx={{ 
-            display: "flex", 
-            width: "100%",
-            justifyContent: "center", 
-            alignItems: "center",
-            height: "100px" 
-             }}>
             <Typography variant="body2" color="text.secondary">
               No results found
             </Typography>

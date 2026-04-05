@@ -86,62 +86,67 @@ export default function SavedFiltersModal({
         ) : (
           <List disablePadding sx={{ width: "100%" }}>
             {savedItems.map((entry) => {
-              const {primary, secondary} = formatFilterSummary(entry)
+              const { primary, secondary } = formatFilterSummary(entry);
               return (
-              <ListItem
-                key={entry.id}
-                disablePadding
-                sx={{ mb: 1 }}
-                secondaryAction={
-                  <IconButton
-                    edge="end"
-                    size="small"
-                    aria-label="Delete saved search"
-                    onClick={() => onDelete(entry.id)}
-                  >
-                    <DeleteOutlineIcon fontSize="small" />
-                  </IconButton>
-                }
-              >
-                <ListItemButton
-                  onClick={() => onApply(entry.id)}
-                  alignItems="flex-start"
-                  sx={{
-                    borderRadius: 2,
-                    border: 1,
-                    borderColor: "divider",
-                    pr: 6,
-                  }}
-                >
-                  <Box
-                  >
-                    <Typography 
-                    variant="body2" 
-                    fontWeight={600} 
-                    sx={{ 
-                      textWrap: 'wrap'
-                    }}>
-                      {primary}
-                    </Typography>
-                    <Typography 
-                    variant="caption" 
-                    color="text.secondary"
-                    sx={{
-                      textWrap: 'wrap'
-                    }}
+                <ListItem
+                  key={entry.id}
+                  disablePadding
+                  sx={{ mb: 1 }}
+                  secondaryAction={
+                    <IconButton
+                      edge="end"
+                      size="small"
+                      aria-label="Delete saved search"
+                      onClick={() => onDelete(entry.id)}
                     >
-                      {secondary}
-                    </Typography>
-                  </Box>
-                </ListItemButton>
-              </ListItem>
-            )})}
+                      <DeleteOutlineIcon fontSize="small" />
+                    </IconButton>
+                  }
+                >
+                  <ListItemButton
+                    onClick={() => onApply(entry.id)}
+                    alignItems="flex-start"
+                    sx={{
+                      borderRadius: 2,
+                      border: 1,
+                      borderColor: "divider",
+                      pr: 6,
+                    }}
+                  >
+                    <Box>
+                      <Typography
+                        variant="body2"
+                        fontWeight={600}
+                        sx={{
+                          textWrap: "wrap",
+                        }}
+                      >
+                        {primary}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{
+                          textWrap: "wrap",
+                        }}
+                      >
+                        {secondary}
+                      </Typography>
+                    </Box>
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
           </List>
         )}
       </DialogContent>
 
       <DialogActions sx={{ px: 3, pb: 2 }}>
-        <Button onClick={onClose} variant="outlined" sx={{ textTransform: "none" }}>
+        <Button
+          onClick={onClose}
+          variant="outlined"
+          sx={{ textTransform: "none" }}
+        >
           Close
         </Button>
       </DialogActions>

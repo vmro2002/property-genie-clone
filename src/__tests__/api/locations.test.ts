@@ -48,7 +48,9 @@ describe("GET /api/locations", () => {
   });
 
   it("proxies a 200 response from the upstream API", async () => {
-    const upstreamData = [{ type: "City", title: "Kuala Lumpur", slug: "kuala-lumpur" }];
+    const upstreamData = [
+      { type: "City", title: "Kuala Lumpur", slug: "kuala-lumpur" },
+    ];
     fetchMock.mockResponseOnce(JSON.stringify(upstreamData), { status: 200 });
 
     const req = makeReq({ keyword: "kuala" });

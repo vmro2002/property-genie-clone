@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 export function useListingsSort() {
   const router = useRouter();
   const sortFromUrl = router.query.sort as string | undefined;
-  
+
   // Default sort by oldest listings
-  const selectedSort = sortFromUrl ?? 'createdAt';
+  const selectedSort = sortFromUrl ?? "createdAt";
 
   const handleSortChange = (value: string) => {
     router.push({

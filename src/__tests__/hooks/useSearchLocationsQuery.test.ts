@@ -14,7 +14,11 @@ function makeWrapper() {
     },
   });
   return function Wrapper({ children }: { children: React.ReactNode }) {
-    return React.createElement(QueryClientProvider, { client: queryClient }, children);
+    return React.createElement(
+      QueryClientProvider,
+      { client: queryClient },
+      children,
+    );
   };
 }
 
@@ -29,7 +33,9 @@ describe("useSearchLocationsQuery", () => {
 
   it("fetches from /api/locations with the correct encoded keyword for a non-empty input", async () => {
     fetchMock.mockResponseOnce(
-      JSON.stringify([{ type: "City", title: "Kuala Lumpur", slug: "kuala-lumpur" }])
+      JSON.stringify([
+        { type: "City", title: "Kuala Lumpur", slug: "kuala-lumpur" },
+      ]),
     );
 
     const wrapper = makeWrapper();
@@ -56,7 +62,7 @@ describe("useSearchLocationsQuery", () => {
     const wrapper = makeWrapper();
     const { rerender } = renderHook(
       ({ val }: { val: string }) => useSearchLocationsQuery(val),
-      { wrapper, initialProps: { val: "" } }
+      { wrapper, initialProps: { val: "" } },
     );
 
     // Change value — debounce timer starts but hasn't fired yet

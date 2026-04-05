@@ -7,7 +7,6 @@ export default function ViewSelector({
   isVerticalView,
   onChange,
 }: ViewSelectorProps) {
-
   const activeStyles = {
     px: 1,
     borderRadius: 0,
@@ -25,15 +24,16 @@ export default function ViewSelector({
   };
 
   return (
-    <Box 
-      component='div'
-      sx={{ 
-        display: "flex", 
+    <Box
+      component="div"
+      sx={{
+        display: "flex",
         borderRadius: 1,
         border: 1,
-        borderColor: 'primary.main',
-        overflow: 'hidden'
-      }}>
+        borderColor: "primary.main",
+        overflow: "hidden",
+      }}
+    >
       <IconButton
         onClick={() => onChange(true)}
         size="small"

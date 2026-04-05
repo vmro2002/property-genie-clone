@@ -29,12 +29,14 @@ export function useAiGeneration() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ description }),
       });
-    
+
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error ?? "Something went wrong. Please try again.");
+        throw new Error(
+          data.error ?? "Something went wrong. Please try again.",
+        );
       }
-    
+
       return res.json();
     },
     onSuccess: (data) => {
@@ -58,7 +60,7 @@ export function useAiGeneration() {
       reset();
     },
     onError: (err: Error) => {
-     setError('description', { message: err.message });
+      setError("description", { message: err.message });
     },
   });
 

@@ -307,7 +307,7 @@ describe("getListingsData", () => {
     fetchMock.mockResponseOnce("Error", { status: 503 });
 
     await expect(getListingsData(makeCtx({}))).rejects.toThrow(
-      "Failed to fetch listings: 503"
+      "Failed to fetch listings: 503",
     );
   });
 });

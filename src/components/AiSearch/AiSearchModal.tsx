@@ -18,14 +18,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useAiGeneration } from "@/hooks/useAiGeneration";
 
 export default function AiSearchModal() {
-  const {
-    modalOpen,
-    setModalOpen,
-    register,
-    onSubmit,
-    formErrors,
-    mutation,
-  } = useAiGeneration();
+  const { modalOpen, setModalOpen, register, onSubmit, formErrors, mutation } =
+    useAiGeneration();
 
   return (
     <>
@@ -73,7 +67,11 @@ export default function AiSearchModal() {
               Search with AI
             </Typography>
           </Box>
-          <IconButton onClick={() => setModalOpen(false)} size="small" aria-label="Close">
+          <IconButton
+            onClick={() => setModalOpen(false)}
+            size="small"
+            aria-label="Close"
+          >
             <CloseIcon />
           </IconButton>
         </DialogTitle>
@@ -81,7 +79,9 @@ export default function AiSearchModal() {
         <Divider />
 
         <form onSubmit={onSubmit}>
-          <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2, pt: 3 }}>
+          <DialogContent
+            sx={{ display: "flex", flexDirection: "column", gap: 2, pt: 3 }}
+          >
             <Typography variant="body2" color="text.secondary">
               Describe the property you&apos;re looking for and our AI will find
               the best matching filters for you.

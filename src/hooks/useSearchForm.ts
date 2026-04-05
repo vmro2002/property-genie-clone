@@ -10,17 +10,13 @@ export function useSearchForm() {
   const searchParams = useSearchParams();
   const queryKeyword = searchParams.get("q");
 
-  const {
-    control,
-    handleSubmit,
-    register,
-    setValue,
-  } = useForm<SearchFormValues>({
-    resolver: zodResolver(searchSchema),
-    defaultValues: {
-      q: queryKeyword ?? "",
-    },
-  });
+  const { control, handleSubmit, register, setValue } =
+    useForm<SearchFormValues>({
+      resolver: zodResolver(searchSchema),
+      defaultValues: {
+        q: queryKeyword ?? "",
+      },
+    });
 
   const keyword = useWatch({
     control: control,
@@ -40,23 +36,22 @@ export function useSearchForm() {
         pathname: router.pathname,
         query: {
           state: location.title,
-          page: 1
-        }
-      })
+          page: 1,
+        },
+      });
     }
     if (location.type === "City") {
       router.push({
         pathname: router.pathname,
         query: {
-          city: location.title.split(',')[0],
-          page: 1
-        }
-      })
+          city: location.title.split(",")[0],
+          page: 1,
+        },
+      });
     }
-  }
+  };
 
-
-  return { 
+  return {
     register,
     setValue,
     onSubmit,

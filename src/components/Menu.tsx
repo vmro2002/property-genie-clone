@@ -25,7 +25,8 @@ export default function Menu({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const selectedLabel = items.find((i) => i.value === selectedItem)?.label ?? title ?? "Select";
+  const selectedLabel =
+    items.find((i) => i.value === selectedItem)?.label ?? title ?? "Select";
 
   return (
     <ClickAwayListener onClickAway={() => setIsOpen(false)}>
@@ -47,12 +48,12 @@ export default function Menu({
           }}
         >
           <Typography
-          sx={{
-            display: {
-              xs: 'none',
-              md: 'block'
-            }
-          }}
+            sx={{
+              display: {
+                xs: "none",
+                md: "block",
+              },
+            }}
           >
             {selectedLabel}
           </Typography>
@@ -65,7 +66,7 @@ export default function Menu({
           disablePortal
           sx={{ zIndex: 1300 }}
         >
-            <Box
+          <Box
             component="div"
             sx={{
               borderRadius: 3,
@@ -73,9 +74,9 @@ export default function Menu({
               minWidth: 240,
               boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
               backgroundColor: "background.default",
-              p: 2
+              p: 2,
             }}
-            >
+          >
             {(title || onClear) && (
               <Box
                 sx={{
@@ -109,7 +110,7 @@ export default function Menu({
               </Box>
             )}
 
-            <Divider/>
+            <Divider />
 
             <List>
               {items.map((item) => (
@@ -125,7 +126,7 @@ export default function Menu({
                     py: 1,
                     "&:hover": {
                       color: "primary.main",
-                      bgcolor: 'primary.light',
+                      bgcolor: "primary.light",
                     },
                     "&.Mui-selected": {
                       bgcolor: "transparent",
@@ -133,13 +134,9 @@ export default function Menu({
                     },
                   }}
                 >
-                  <ListItemText
-                    primary={item.label}
-                  />
+                  <ListItemText primary={item.label} />
                   {item.value === selectedItem && (
-                    <CheckIcon
-                      sx={{ fontSize: 18, color: "primary.main"}}
-                    />
+                    <CheckIcon sx={{ fontSize: 18, color: "primary.main" }} />
                   )}
                 </ListItemButton>
               ))}

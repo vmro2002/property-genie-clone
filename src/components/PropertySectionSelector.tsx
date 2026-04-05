@@ -8,7 +8,7 @@ export default function PropertySectionSelector() {
     <Box
       sx={{
         display: "flex",
-        width: 'fit-contain',
+        width: "fit-contain",
         border: 1,
         borderColor: "primary.main",
         borderRadius: 2,
@@ -30,7 +30,7 @@ export default function PropertySectionSelector() {
           fontFamily: "inherit",
         }}
       >
-        <Typography variant="body2" sx={{textWrap: 'nowrap'}}>
+        <Typography variant="body2" sx={{ textWrap: "nowrap" }}>
           For Sale
         </Typography>
       </Box>
@@ -51,7 +51,7 @@ export default function PropertySectionSelector() {
           fontFamily: "inherit",
         }}
       >
-        <Typography variant="body2" sx={{textWrap: 'nowrap'}}>
+        <Typography variant="body2" sx={{ textWrap: "nowrap" }}>
           For Rent
         </Typography>
       </Box>
