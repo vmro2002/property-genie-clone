@@ -1,3 +1,5 @@
+import type { FilterFormValues } from "@/schemas/filterSchema";
+
 export type ListingsResponse = {
     items: {
         id: string;
@@ -60,4 +62,19 @@ export type SearchLocation = {
     type: string;
     title: string;
     slug: string;
+}
+
+export type FilterSaveToast = {
+    open: boolean;
+    message: string;
+    severity: "success" | "info" | "error";
+};
+
+export type ListingFilter = FilterFormValues & {
+    id: string
+    section?: 'rent' | 'sale'
+    state?: string 
+    city?: string
+    name?: string
+    q?: string
 }

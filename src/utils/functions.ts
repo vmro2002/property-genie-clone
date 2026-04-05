@@ -1,4 +1,4 @@
-import { ListingsResponse } from "./types";
+import type { ListingsResponse, ListingFilter } from "./types";
 import { API_ENDPOINT } from "./constants";
 import type { GetServerSidePropsContext } from "next";
 import type { ParsedUrlQuery } from "querystring";
@@ -95,3 +95,48 @@ export const safeParseFloat = (value: string) => {
         return undefined;
     }
 }
+
+export const stableStringify = (obj: any): string => {
+    if (obj === null || typeof obj !== "object") {
+        return JSON.stringify(obj);
+    }
+    
+    if (Array.isArray(obj)) {
+        return `[${obj.map(stableStringify).join(",")}]`;
+    }
+    
+    const keys = Object.keys(obj).sort();
+    
+    return `{${keys
+        .map((key) => `"${key}":${stableStringify(obj[key])}`)
+        .join(",")}}`;
+}
+
+export const capitalizeFirstLetter = (word: string): string => {
+    return word.charAt(0).toUpperCase() + word.slice(1)
+}
+
+export const formatFilterSummary = (filter: ListingFilter): {primary: string, secondary: string} => {
+    let primaryText = ''
+
+    primaryText += filter.section ? capitalizeFirstLetter(filter.section) : 'Sale'
+
+    if (filter.state) {
+      primaryText += ` • ${filter.state}`
+    }
+    if (filter.city) {
+      primaryText += ` • ${filter.city}`
+    }
+
+    let secondaryText = ''
+    if (filter.q) {
+      secondaryText += `Search: "${filter.q}"`
+    }
+
+    secondaryText += `${filter.q ? ' •' : ''} ${filter.categories? capitalizeFirstLetter(filter.categories) : 'All Properties'}`
+
+    return {
+      primary: primaryText,
+      secondary: secondaryText,
+    }
+  }

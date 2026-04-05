@@ -1,4 +1,4 @@
-import type { SearchLocation } from "./types";
+import type { SearchLocation, ListingFilter } from "./types";
 
 /**
  * Interface for ListingCard component
@@ -66,4 +66,16 @@ export interface FilterOptionToggleProps {
     icon?: React.ReactElement;
     isSelected: boolean;
     onClick: (value: string | number) => void;
+}
+
+/**
+ * Props for SavedFiltersModal component
+ */
+export interface SavedFiltersModalProps {
+    open: boolean;
+    onClose: () => void;
+    savedItems: ListingFilter[];
+    isEmpty: boolean;
+    onDelete: (filterId: string) => void;
+    onApply: (filterId: string) => void;
 }
