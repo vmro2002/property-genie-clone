@@ -17,7 +17,7 @@ export default async function handler(
   const { keyword } = req.query;
 
   if (!keyword || typeof keyword !== "string") {
-    return res.status(400).json({ error: "keyword is required" });
+    return res.status(422).json({ error: "keyword is required" });
   }
 
   try {

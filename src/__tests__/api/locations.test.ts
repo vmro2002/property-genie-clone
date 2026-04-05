@@ -32,19 +32,19 @@ function makeRes() {
 }
 
 describe("GET /api/locations", () => {
-  it("returns 400 when keyword param is missing", async () => {
+  it("returns 422 when keyword param is missing", async () => {
     const req = makeReq({});
     const res = makeRes();
     await handler(req, res);
-    expect(res._status).toBe(400);
+    expect(res._status).toBe(422);
     expect((res._body as any).error).toMatch(/keyword/i);
   });
 
-  it("returns 400 when keyword is an array (not a string)", async () => {
+  it("returns 422 when keyword is an array (not a string)", async () => {
     const req = makeReq({ keyword: ["kl", "pj"] });
     const res = makeRes();
     await handler(req, res);
-    expect(res._status).toBe(400);
+    expect(res._status).toBe(422);
   });
 
   it("proxies a 200 response from the upstream API", async () => {
