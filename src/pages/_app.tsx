@@ -9,6 +9,7 @@ import { Container } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Loader from "@/components/Loader";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,15 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <main className={poppins.className}>
           {loading? (
-            <div 
-            style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              height: '100vh' 
-            }}>
-              loading....
-            </div>
+            <Loader />
           ) : (
             <ThemeProvider theme={theme}>
               <CssBaseline />
