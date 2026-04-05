@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
  * Creates a minimal mock of NextApiRequest.
  */
 function makeReq(query: Record<string, string | string[]>): NextApiRequest {
-  return { query } as unknown as NextApiRequest;
+  return { query, method: "GET" } as unknown as NextApiRequest;
 }
 
 /**
