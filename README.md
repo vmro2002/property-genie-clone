@@ -22,10 +22,6 @@ https://property-genie-clone.vercel.app/
 
 ---
 
-## Live Demo
-
----
-
 ## How to Run
 
 ### Prerequisites
