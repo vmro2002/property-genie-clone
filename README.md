@@ -1,6 +1,6 @@
 # Property Genie Clone
 
-A real estate listings platform built as a job interview task, featuring server-side rendering, AI-powered search, and a full filter system.
+A demo real estate listings platform, featuring server-side rendering, AI-powered search, and a full filter system.
 
 ---
 
