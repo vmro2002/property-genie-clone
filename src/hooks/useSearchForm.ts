@@ -10,8 +10,6 @@ export function useSearchForm() {
   const searchParams = useSearchParams();
   const queryKeyword = searchParams.get("q");
 
-  const {state, city, ...rest} = router.query;
-
   const {
     control,
     handleSubmit,
@@ -32,7 +30,7 @@ export function useSearchForm() {
   const onSubmit = handleSubmit((data) => {
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, q: data.q, page: 1 },
+      query: { q: data.q, page: 1 },
     });
   });
 
@@ -41,8 +39,8 @@ export function useSearchForm() {
       router.push({
         pathname: router.pathname,
         query: {
-          ...rest, 
-          state: location.title
+          state: location.title,
+          page: 1
         }
       })
     }
@@ -50,8 +48,8 @@ export function useSearchForm() {
       router.push({
         pathname: router.pathname,
         query: {
-          ...rest, 
-          city: location.title.split(',')[0]
+          city: location.title.split(',')[0],
+          page: 1
         }
       })
     }
