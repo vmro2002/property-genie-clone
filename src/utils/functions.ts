@@ -43,7 +43,7 @@ export async function getListingsData(ctx: GetServerSidePropsContext): Promise<L
 
     const params = new URLSearchParams({
         page: String(page ?? 1),
-        sort: String(sort ?? "price"),
+        sort: String(sort ?? "createdAt"),
     });
 
     const filter: FilterFormValues & { name?: string; section: 'rent' | 'sale' } = {

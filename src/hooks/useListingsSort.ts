@@ -4,8 +4,8 @@ export function useListingsSort() {
   const router = useRouter();
   const sortFromUrl = router.query.sort as string | undefined;
   
-  // Default sort by ascending price
-  const selectedSort = sortFromUrl ?? 'price';
+  // Default sort by oldest listings
+  const selectedSort = sortFromUrl ?? 'createdAt';
 
   const handleSortChange = (value: string) => {
     router.push({
