@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Typography, Grid, Pagination, Button, Badge } from "@mui/material";
+import { Box, Typography, Grid, Pagination } from "@mui/material";
 import { useRouter } from "next/router";
 import ListingCard from "./ListingCard/FilterCard";
 import Menu from "./Menu";
@@ -14,6 +14,9 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
   const [isVerticalView, setIsVerticalView] = useState(true);
   const { selectedSort, handleSortChange, clearSort } = useListingsSort();
 
+  const totalCount = data._meta.totalCount
+  const section = router.query.section as string | undefined ?? "sale";
+
   return (
     <Box>
       <Box
@@ -27,7 +30,7 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
         }}
       >
         <Typography variant="h6" fontWeight={600} color="text.primary">
-          {data._meta.totalCount.toLocaleString()} Properties for Sale in Malaysia
+          {totalCount.toLocaleString()} Propert{totalCount == 1 ? "y" : "ies"} for {section.charAt(0).toUpperCase() + section.slice(1)} in Malaysia
         </Typography>
 
         <Box 

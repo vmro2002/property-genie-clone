@@ -36,7 +36,7 @@ export default function Home({
       gap: 2
     }}
     >
-      {q || city || state && (
+      {(q || city || state) && (
         <Breadcrumbs
         separator=">"
         sx={{
@@ -44,12 +44,7 @@ export default function Home({
         }}
         >
           <Link 
-          href={{
-            pathname: "/",
-            query: {
-              ...rest,
-            },
-          }}
+          href="/"
           style={{
             textDecoration: 'none',
             color: 'inherit',
