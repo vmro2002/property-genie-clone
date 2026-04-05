@@ -8,7 +8,6 @@ import { ListingsResponse } from "@/utils/types";
 import ListingsGrid from "@/components/ListingsGrid";
 import { Box, Breadcrumbs, Typography } from "@mui/material";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import {useSearchParams} from "next/navigation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import FilterModal from "@/components/FilterModal/FilterModal";
@@ -26,11 +25,8 @@ export default function Home({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
-  const searchParams = useSearchParams();
-
   const router = useRouter();
-  const {q, ...rest} = router.query;
-  const keyword = searchParams.get("q");
+  const {q, state, city, ...rest} = router.query;
 
   return (
     <Box
@@ -40,7 +36,7 @@ export default function Home({
       gap: 2
     }}
     >
-      {keyword && (
+      {q || city || state && (
         <Breadcrumbs
         separator=">"
         sx={{
@@ -65,7 +61,9 @@ export default function Home({
           variant="body2" 
           color="text.secondary"
           >
-            Search Results for "{keyword}"
+            {q && `Search Results for "${q}"`}
+            {city && city}
+            {state && state}
           </Typography>
 
         </Breadcrumbs>

@@ -15,6 +15,7 @@ export default function SearchBarDropDown({
     locationsIsFetching,
     locationsError,
     locations,
+    onLocationClick,
 }: SearchBarDropDownProps) {
 
     const hasResults = locations && locations.length > 0;
@@ -85,7 +86,7 @@ export default function SearchBarDropDown({
             Top Suggestions
           </Typography>
           <List disablePadding>
-            {locations.map((item, index) => (
+            {locations.map((item) => (
               <ListItemButton
                 key={item.slug}
                 sx={{
@@ -93,6 +94,7 @@ export default function SearchBarDropDown({
                   px: 2,
                   "&:hover": { bgcolor: "primary.light" },
                 }}
+                onClick={() => onLocationClick(item)}
               >
                 <ListItemText
                   primary={item.title}
@@ -103,7 +105,6 @@ export default function SearchBarDropDown({
                   sx={{
                     bgcolor: "primary.light",
                     color: "primary.main",
-                    // fontWeight: 500,
                     fontSize: "0.75rem",
                     height: 24,
                     textTransform: "capitalize",

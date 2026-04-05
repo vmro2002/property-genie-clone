@@ -39,16 +39,18 @@ export function getFilterDefaultsFromQuery(query: ParsedUrlQuery): FilterFormVal
 }
 
 export async function getListingsData(ctx: GetServerSidePropsContext): Promise<ListingsResponse> {
-    const { page, sort, q, section } = ctx.query;
+    const { page, sort, q, section, state, city } = ctx.query;
 
     const params = new URLSearchParams({
         page: String(page ?? 1),
         sort: String(sort ?? "createdAt"),
     });
 
-    const filter: FilterFormValues & { name?: string; section: 'rent' | 'sale' } = {
+    const filter: FilterFormValues & { name?: string; section: 'rent' | 'sale', state?: string, city?: string } = {
         ...getFilterDefaultsFromQuery(ctx.query),
         section: section === "rent" || section === "sale" ? section : "sale",
+        state: !city && typeof state === "string" ? state : undefined,
+        city: typeof city === "string" ? city : undefined,
     };
     if (typeof q === "string") filter.name = q;
 

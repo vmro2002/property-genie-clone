@@ -54,6 +54,7 @@ export interface SearchBarDropDownProps {
     locationsIsFetching: boolean;
     locationsError: Error | null;
     locations: SearchLocation[] | undefined;
+    onLocationClick: (slug: SearchLocation) => void;
 }
 
 /**

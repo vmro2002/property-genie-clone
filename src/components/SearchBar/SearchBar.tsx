@@ -11,6 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useSearchLocationsQuery } from "@/hooks/useSearchLocationsQuery";
 import { useSearchForm } from "@/hooks/useSearchForm";
 import SearchBarDropDown from "./SearchBarDropDown";
+import { useRouter } from "next/router";
 
 export default function SearchBar() {
 
@@ -18,7 +19,8 @@ export default function SearchBar() {
     register,
     setValue,
     onSubmit, 
-    keyword 
+    keyword,
+    onLocationClick,
   } = useSearchForm();
 
   const [isFocused, setIsFocused] = useState(false);
@@ -32,6 +34,8 @@ export default function SearchBar() {
   } = useSearchLocationsQuery(keyword);
 
   const hasKeyword = debouncedValue.length > 0;
+
+  const router = useRouter();
 
   return (
     <ClickAwayListener onClickAway={() => setIsFocused(false)}>
@@ -111,6 +115,7 @@ export default function SearchBar() {
                 locationsIsFetching={locationsIsFetching}
                 locationsError={locationsError}
                 locations={locations}
+                onLocationClick={(location) => onLocationClick(location)}
             />
           </Box>
         </Popper>
