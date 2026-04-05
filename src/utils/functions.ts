@@ -39,15 +39,18 @@ export function getFilterDefaultsFromQuery(query: ParsedUrlQuery): FilterFormVal
 }
 
 export async function getListingsData(ctx: GetServerSidePropsContext): Promise<ListingsResponse> {
-    const { page, sort, q } = ctx.query;
+    const { page, sort, q, section } = ctx.query;
 
     const params = new URLSearchParams({
         page: String(page ?? 1),
         sort: String(sort ?? "price"),
     });
 
-    const filter: FilterFormValues & {name?: string} = getFilterDefaultsFromQuery(ctx.query);
-    if (typeof q === "string") filter['name'] = q;
+    const filter: FilterFormValues & { name?: string; section: 'rent' | 'sale' } = {
+        ...getFilterDefaultsFromQuery(ctx.query),
+        section: section === "rent" || section === "sale" ? section : "sale",
+    };
+    if (typeof q === "string") filter.name = q;
 
     const res = await fetch(`${API_ENDPOINT}/properties-mock?${params.toString()}`, {
         method: "POST",

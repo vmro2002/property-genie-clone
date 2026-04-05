@@ -12,6 +12,7 @@ import {useSearchParams} from "next/navigation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import FilterModal from "@/components/FilterModal";
+import PropertySectionSelector from "@/components/PropertySectionSelector";
 
 export const getServerSideProps: GetServerSideProps<{
   data: ListingsResponse;
@@ -76,11 +77,31 @@ export default function Home({
         borderRadius: 3,
         p: 2,
         display: 'flex',
-        gap: 1
+        flexDirection: {
+          xs: 'column',
+          md: 'row',
+        },
+        gap: {
+          xs: 2,
+          md: 1
+        }
       }}
       >
         <SearchBar/>
+        <Box
+        sx={{
+          display: 'flex',
+          flexWrap: {
+            xs: 'wrap',
+            sm: 'nowrap'
+          },
+          gap: 1,
+        }}
+        >
+
         <FilterModal />
+        <PropertySectionSelector />
+        </Box>
       </Box>
       <ListingsGrid data={data} />
     </Box>
