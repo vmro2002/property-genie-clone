@@ -7,11 +7,11 @@ import { getListingsData } from "@/utils/functions";
 import { ListingsResponse } from "@/utils/types";
 import ListingsGrid from "@/components/ListingsGrid";
 import { Box, Breadcrumbs, Typography } from "@mui/material";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/SearchBar/SearchBar";
 import {useSearchParams} from "next/navigation";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import FilterModal from "@/components/FilterModal";
+import FilterModal from "@/components/FilterModal/FilterModal";
 import PropertySectionSelector from "@/components/PropertySectionSelector";
 
 export const getServerSideProps: GetServerSideProps<{

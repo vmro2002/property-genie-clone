@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, Grid, Pagination, Button, Badge } from "@mui/material";
 import { useRouter } from "next/router";
-import ListingCard from "./ListingCard";
+import ListingCard from "./ListingCard/FilterCard";
 import Menu from "./Menu";
 import ViewSelector from "./ViewSelector";
 import { useListingsSort } from "@/hooks/useListingsSort";
