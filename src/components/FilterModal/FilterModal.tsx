@@ -98,6 +98,7 @@ export default function FilterModal() {
           borderRadius: 3,
         }
       }}
+      disableRestoreFocus
     >
       <DialogTitle
         sx={{

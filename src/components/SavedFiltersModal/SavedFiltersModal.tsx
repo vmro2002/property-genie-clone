@@ -38,6 +38,7 @@ export default function SavedFiltersModal({
           borderRadius: 3,
         },
       }}
+      disableRestoreFocus
     >
       <DialogTitle
         sx={{
