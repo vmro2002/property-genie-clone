@@ -11,7 +11,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useSearchLocationsQuery } from "@/hooks/useSearchLocationsQuery";
 import { useSearchForm } from "@/hooks/useSearchForm";
 import SearchBarDropDown from "./SearchBarDropDown";
-import { useRouter } from "next/router";
 
 export default function SearchBar() {
 

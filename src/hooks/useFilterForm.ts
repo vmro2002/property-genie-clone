@@ -23,7 +23,7 @@ export function useFilterForm() {
     ...restQuery
   } = router.query
 
-  const activeFilterCount = useMemo(() => {
+  const activeFilterCount = ((): number => {
     let count = 0
     if (minPriceQuery) count++;
     if (maxPriceQuery) count++;
@@ -33,15 +33,7 @@ export function useFilterForm() {
     if (bathRoomsQuery?.length) count ++;
     if (furnishingsQuery?.length) count ++;
     return count;
-  }, [
-    minPriceQuery,
-    maxPriceQuery,
-    categoriesQuery,
-    typesQuery,
-    bedRoomsQuery,
-    bathRoomsQuery,
-    furnishingsQuery,
-  ]);
+  })();
 
   const {
     register,

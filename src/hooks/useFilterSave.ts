@@ -24,6 +24,9 @@ export function useFilterSave() {
     setToast((t) => ({ ...t, open: false }));
   }
 
+  /**
+   * Load saved filters from local storage
+   */
   const getSavedFilters = (): ListingFilter[] => {
     if (typeof window === "undefined") return [];
 
@@ -40,21 +43,29 @@ export function useFilterSave() {
   const {page, ...rest} = router.query
 
   const saveFilter = async () => {
+    // prevent saving empty filters
     if (Object.keys(rest).length === 0) {
       showToast('No filters to save.', 'info')
       return
     }
+
+    // convert the filter object to a string
     const filterString = stableStringify(rest)
 
+    // encode the string to a buffer
     const encoder = new TextEncoder()
     const encodedString = encoder.encode(filterString)
 
+    // hash the encoded string
     const hashBuffer = await crypto.subtle.digest("SHA-256", encodedString)
     
+    // convert the hash buffer to a hex string 
+    // this is a unique identifier for the filter
     const filterId = Array.from(new Uint8Array(hashBuffer))
       .map((buffer) => buffer.toString(16).padStart(2, "0"))
       .join("")
 
+    // prevent saving duplicate filters
     const filterExists = savedFilters.some((filter) => filter.id === filterId)
 
     if (filterExists) {
@@ -64,12 +75,15 @@ export function useFilterSave() {
 
     const newFilters = [...savedFilters, {id: filterId, ...rest}]
    
+    // save the new filters to local storage
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(newFilters))
+    // sync the state
     setSavedFilters(newFilters)
 
     showToast('Search saved successfully.', "success")
   }
 
+  // remove filter from local storage and sync state
   const removeSavedFilter = (filterId: string) => {
       const newFilters = savedFilters.filter((filter) => filter.id !== filterId)
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(newFilters))
@@ -95,6 +109,7 @@ export function useFilterSave() {
     })
   }
 
+  // load saved filters from local storage on mount
   useEffect(() => {
     setSavedFilters(getSavedFilters())
   }, [])

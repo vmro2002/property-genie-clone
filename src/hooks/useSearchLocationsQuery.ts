@@ -23,7 +23,7 @@ export const useSearchLocationsQuery = (value: string) =>  {
       return res.json();
     },
     placeholderData: (prev) => prev,
-    enabled: debouncedValue.length > 0, // Only fetch if there is a value
+    enabled: debouncedValue.length > 0, // Only fetch if there is a debounced value
   });
 
   return {

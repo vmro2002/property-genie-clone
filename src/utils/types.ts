@@ -1,5 +1,8 @@
 import type { FilterFormValues } from "@/schemas/filterSchema";
 
+/**
+ * Type of the data returned form listing endpoint
+ */
 export type ListingsResponse = {
     items: {
         id: string;
@@ -58,18 +61,27 @@ export type ListingsResponse = {
     }
 }
 
+/**
+ * Type of the data returned form search location endpoint
+ */
 export type SearchLocation = {
     type: string;
     title: string;
     slug: string;
 }
 
+/**
+ * Type of the toast data for filter save
+ */
 export type FilterSaveToast = {
     open: boolean;
     message: string;
     severity: "success" | "info" | "error";
 };
 
+/**
+ * Type of the filter data for filter save
+ */
 export type ListingFilter = FilterFormValues & {
     id: string
     section?: 'rent' | 'sale'
