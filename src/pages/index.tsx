@@ -16,6 +16,7 @@ import FilterModal from "@/components/FilterModal/FilterModal";
 import PropertySectionSelector from "@/components/PropertySectionSelector";
 import SavedFiltersModal from "@/components/SavedFiltersModal/SavedFiltersModal";
 import { useFilterSave } from "@/hooks/useFilterSave";
+import AiSearchModal from "@/components/AiSearch/AiSearchModal";
 
 export const getServerSideProps: GetServerSideProps<{
   data: ListingsResponse;
@@ -196,6 +197,7 @@ export default function Home({
         </Alert>
       </Snackbar>
       <ListingsGrid data={data} />
+      <AiSearchModal />
     </Box>
   )
 }
