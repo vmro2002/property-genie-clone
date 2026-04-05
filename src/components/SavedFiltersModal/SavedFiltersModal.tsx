@@ -11,7 +11,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemText,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";

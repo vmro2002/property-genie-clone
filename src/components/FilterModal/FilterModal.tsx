@@ -288,7 +288,7 @@ export default function FilterModal() {
                 control={
                   <Checkbox
                   checked={propertyTypes?.length === 0}
-                  onChange={(e) => setValue("types", [])}
+                  onChange={() => setValue("types", [])}
                   sx={{
                     color: "divider",
                     "&.Mui-checked": { color: "primary.main" },
@@ -304,7 +304,7 @@ export default function FilterModal() {
                 control={
                   <Checkbox
                   checked={!!propertyTypes?.includes(listingType)}
-                  onChange={(e) => togglePropertyType(listingType)}
+                  onChange={() => togglePropertyType(listingType)}
                   sx={{
                     color: "divider",
                     "&.Mui-checked": { color: "primary.main" },

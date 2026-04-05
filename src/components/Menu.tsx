@@ -61,7 +61,7 @@ export default function Menu({
         <Popper
           open={isOpen}
           placement="bottom-end"
-          anchorEl={containerRef.current}
+          anchorEl={containerRef?.current}
           disablePortal
           sx={{ zIndex: 1300 }}
         >

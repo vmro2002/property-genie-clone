@@ -35,8 +35,6 @@ export default function SearchBar() {
 
   const hasKeyword = debouncedValue.length > 0;
 
-  const router = useRouter();
-
   return (
     <ClickAwayListener onClickAway={() => setIsFocused(false)}>
       <Box 
@@ -91,11 +89,11 @@ export default function SearchBar() {
 
         <Popper
           open={isFocused}
-          anchorEl={containerRef.current}
+          anchorEl={containerRef?.current}
           placement="bottom-start"
           disablePortal
           style={{
-            width: containerRef.current?.offsetWidth,
+            width: containerRef?.current?.offsetWidth,
             zIndex: 1300,
           }}
         >
