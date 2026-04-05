@@ -20,6 +20,11 @@ import { useFilterSave } from "@/hooks/useFilterSave";
 export const getServerSideProps: GetServerSideProps<{
   data: ListingsResponse;
 }> = async (ctx: GetServerSidePropsContext) => {
+  ctx.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=60, stale-while-revalidate=300"
+  );
+
   const data = await getListingsData(ctx);
 
   return { props: { data } };
