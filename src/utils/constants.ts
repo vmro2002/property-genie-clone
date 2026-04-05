@@ -48,7 +48,7 @@ export const LISTING_BEDROOMS =  [
         value: 4
     },
     {
-        label: '5',
+        label: '5+',
         value: 5
     }
 ]

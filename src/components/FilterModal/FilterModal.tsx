@@ -369,7 +369,7 @@ export default function FilterModal() {
             {LISTING_BATHROOMS.map((bathroom) => (
               <FilterOptionToggle
               key={bathroom}
-              label={String(bathroom)}
+              label={bathroom == 5? '5+' : String(bathroom)}
               value={bathroom}
               isSelected={!!bathRooms?.includes(bathroom)}
               onClick={() => toggleBathrooms(bathroom)}
