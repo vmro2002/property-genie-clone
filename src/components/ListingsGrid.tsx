@@ -7,6 +7,7 @@ import ViewSelector from "./ViewSelector";
 import { useListingsSort } from "@/hooks/useListingsSort";
 import { LISTINGS_SORT_OPTIONS } from "@/utils/constants";
 import type { ListingsResponse } from "@/utils/types";
+import {capitalizeFirstLetter} from "@/utils/functions";
 
 export default function ListingsGrid({ data }: { data: ListingsResponse }) {
 
@@ -30,7 +31,7 @@ export default function ListingsGrid({ data }: { data: ListingsResponse }) {
         }}
       >
         <Typography variant="h6" fontWeight={600} color="text.primary">
-          {totalCount.toLocaleString()} Propert{totalCount == 1 ? "y" : "ies"} for {section.charAt(0).toUpperCase() + section.slice(1)} in Malaysia
+          {totalCount.toLocaleString()} Propert{totalCount == 1 ? "y" : "ies"} for {capitalizeFirstLetter(section)} in Malaysia
         </Typography>
 
         <Box 

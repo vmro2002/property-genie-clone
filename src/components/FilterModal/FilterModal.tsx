@@ -30,7 +30,7 @@ import {
   LISTING_BATHROOMS,
   LISTING_FURNISHINGS,
 } from "@/utils/constants";
-import { safeParseFloat } from "@/utils/functions";
+import { capitalizeFirstLetter, safeParseFloat } from "@/utils/functions";
 import FilterOptionToggle from "./FilterOptionToggle";
 
 const CATEGORY_ICONS: Record<string, React.ReactElement> = {
@@ -249,7 +249,7 @@ export default function FilterModal() {
             {LISTING_CATEGORIES.map((listingCategory) => (
                 <FilterOptionToggle
                 key={listingCategory}
-                label={listingCategory.charAt(0).toUpperCase() + listingCategory.slice(1)}
+                label={capitalizeFirstLetter(listingCategory)}
                 value={listingCategory}
                 icon={CATEGORY_ICONS[listingCategory]}
                 isSelected={categories === listingCategory}
@@ -312,7 +312,7 @@ export default function FilterModal() {
                   size="small"
                   />
                 }
-                label={listingType.charAt(0).toUpperCase() + listingType.slice(1)}
+                label={capitalizeFirstLetter(listingType)}
                 />
               ))}
             </FormGroup>
