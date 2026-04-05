@@ -153,6 +153,7 @@ export default function FilterModal() {
               </Typography>
               <TextField
                 fullWidth
+                data-testid="min-price-input"
                 type="number"
                 size="small"
                 placeholder="Select min price"
@@ -189,6 +190,7 @@ export default function FilterModal() {
               </Typography>
               <TextField
                 fullWidth
+                data-testid="max-price-input"
                 size="small"
                 placeholder="Select max price"
                 {...register("maxPrice", {
