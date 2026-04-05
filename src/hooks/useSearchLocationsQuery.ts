@@ -30,5 +30,6 @@ export const useSearchLocationsQuery = (value: string) =>  {
     locations,
     locationsIsFetching,
     locationsError,
+    debouncedValue,
   }
 }

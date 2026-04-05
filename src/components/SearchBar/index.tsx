@@ -28,9 +28,10 @@ export default function SearchBar() {
     locations,
     locationsIsFetching,
     locationsError,
+    debouncedValue,
   } = useSearchLocationsQuery(keyword);
 
-  const hasKeyword = keyword.length > 0;
+  const hasKeyword = debouncedValue.length > 0;
 
   return (
     <ClickAwayListener onClickAway={() => setIsFocused(false)}>
